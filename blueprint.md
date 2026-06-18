@@ -13,13 +13,13 @@ A modern, framework-less portfolio website for an Android Developer (heymoko), f
   - `Noto Sans KR`: Korean text
   - `Playfair Display`: Current nickname font (to be replaced)
 
-## Current Change Plan: Add Experience Section with Tabs
+## Current Change Plan: Remove Brand Text from Navigation
 ### Purpose
-Add a dedicated "Experience" section below "About" to showcase career and project history using a clean, tabbed interface for better information organization.
+Simplify the navigation bar by removing the "heymoko" text next to the logo icon, creating a cleaner and more minimalist look as requested by the user.
 
 ### Action Steps
-1.  **Define CSS Styles** for the tabbed interface (tabs, radio button logic, content panels).
-2.  **Add Experience Section** in `index.html` after the `#about` section.
-3.  **Implement CSS-only Tab Logic** using radio buttons and the `:checked` selector.
-4.  **Add placeholder content** for Career and Project highlights.
-5.  **Verify responsive behavior** and visual consistency.
+1.  **Locate `.nav-logo` div** in the navigation section of `index.html`.
+2.  **Remove the `<span>heymoko</span>` element**.
+3.  **Ensure the icon remains** and is correctly aligned within the navigation bar.
+4.  **Verify the change** in the browser preview.
+5.  **Deploy the update** to the repository.
