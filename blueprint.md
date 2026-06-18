@@ -13,14 +13,13 @@ A modern, framework-less portfolio website for an Android Developer (heymoko), f
   - `Noto Sans KR`: Korean text
   - `Playfair Display`: Current nickname font (to be replaced)
 
-## Current Change Plan: Update Nickname Font
+## Current Change Plan: Add Experience Section with Tabs
 ### Purpose
-Improve the readability of the nickname "moKo" displayed next to "유정모" in the hero section.
+Add a dedicated "Experience" section below "About" to showcase career and project history using a clean, tabbed interface for better information organization.
 
 ### Action Steps
-1.  **Locate `.hero-nickname` class** in the `<style>` section of `index.html`.
-2.  **Change `font-family`** from `'Playfair Display', serif` to `'Poppins', sans-serif`.
-3.  **Remove `font-style: italic`** to provide a cleaner, more stable look.
-4.  **Adjust `font-weight`** to `600` for better emphasis.
-5.  **Set `text-transform: uppercase`** (optional, but might look good with Poppins) - I'll stick to a clean sans-serif first.
-6.  **Verify the change** in the browser preview.
+1.  **Define CSS Styles** for the tabbed interface (tabs, radio button logic, content panels).
+2.  **Add Experience Section** in `index.html` after the `#about` section.
+3.  **Implement CSS-only Tab Logic** using radio buttons and the `:checked` selector.
+4.  **Add placeholder content** for Career and Project highlights.
+5.  **Verify responsive behavior** and visual consistency.
