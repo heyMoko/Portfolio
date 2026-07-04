@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
@@ -78,7 +78,6 @@
     color: #fff; font-size: 0.73rem; letter-spacing: 1.5px; text-transform: uppercase;
     padding: 4px 14px; border-radius: 20px;
   }
-
   /* ── SECTION COMMON ── */
   section { padding: 80px 5vw; }
   .section-eyebrow {
@@ -98,8 +97,15 @@
 
   /* ── ABOUT ── */
   #about { background: var(--bg2); }
-  .about-text p { color: var(--muted); font-size: 0.95rem; line-height: 1.9; max-width: 680px; }
+  .about-text p { color: var(--muted); font-size: 0.95rem; line-height: 1.9; max-width: 760px; }
   .about-text p + p { margin-top: 14px; }
+  .highlights-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-top: 24px; }
+  .highlight-card {
+    background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 14px;
+    padding: 20px; min-height: 140px;
+  }
+  .highlight-card h3 { font-size: 0.95rem; color: var(--white); margin-bottom: 8px; }
+  .highlight-card p { color: var(--muted); font-size: 0.86rem; line-height: 1.7; }
 
   /* ── EXPERIENCE (TABS) ── */
   #experience { background: var(--bg); }
@@ -170,23 +176,43 @@
 
   /* ── PROJECTS ── */
   #projects { background: var(--bg2); }
-  .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 24px; }
+  .projects-grid { display: grid; grid-template-columns: minmax(0, 760px); gap: 24px; align-items: stretch; }
   .project-card {
     background: var(--card); border: 1px solid var(--border); border-radius: 16px;
     overflow: hidden; transition: border-color .25s, transform .25s;
-    display: flex; flex-direction: column;
+    display: grid; grid-template-columns: 220px minmax(0, 1fr);
   }
   .project-card:hover { border-color: rgba(192,57,43,0.6); transform: translateY(-6px); }
   .project-thumb {
-    height: 160px;
+    min-height: 100%;
     background: linear-gradient(135deg, #1A1D30, #252840);
     display: flex; align-items: center; justify-content: center;
     font-size: 3.5rem;
+    padding: 28px;
+  }
+  .project-thumb img { width: min(130px, 80%); aspect-ratio: 1; object-fit: contain; border-radius: 24px; box-shadow: 0 18px 40px rgba(0,0,0,0.32); }
+  .project-thumb.project-thumb-text {
+    flex-direction: column; gap: 10px;
+    background: linear-gradient(135deg, rgba(192,57,43,0.22), rgba(231,76,60,0.08)), linear-gradient(135deg, #1A1D30, #252840);
+  }
+  .project-monogram {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 108px; aspect-ratio: 1; border-radius: 28px;
+    border: 1px solid rgba(255,255,255,0.1);
+    background: rgba(255,255,255,0.04); color: var(--white);
+    font-family: 'Bebas Neue', sans-serif; font-size: 3.3rem; letter-spacing: 3px;
+    box-shadow: 0 18px 40px rgba(0,0,0,0.26);
+  }
+  .project-thumb-note {
+    color: var(--muted); font-size: 0.76rem; letter-spacing: 1.2px; text-transform: uppercase;
   }
   .project-body { padding: 22px; flex: 1; display: flex; flex-direction: column; }
   .project-type { font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; color: var(--yellow); margin-bottom: 6px; }
   .project-body h3 { font-size: 1.1rem; font-weight: 600; color: var(--white); margin-bottom: 8px; }
   .project-body p { color: var(--muted); font-size: 0.85rem; flex: 1; }
+  .project-points { list-style: none; margin-top: 14px; display: grid; gap: 7px; }
+  .project-points li { color: var(--muted); font-size: 0.8rem; line-height: 1.55; position: relative; padding-left: 15px; }
+  .project-points li::before { content: '•'; position: absolute; left: 0; color: var(--yellow); }
   .project-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 16px; }
   .project-tag {
     font-size: 0.72rem; padding: 3px 10px; border-radius: 12px;
@@ -197,23 +223,67 @@
     display: inline-flex; align-items: center; gap: 6px;
     font-size: 0.78rem; padding: 7px 16px; border-radius: 8px;
     text-decoration: none; font-weight: 600; transition: opacity .2s;
+    border: 0; cursor: pointer; font-family: inherit;
   }
   .btn-link:hover { opacity: 0.8; }
   .btn-gh { background: var(--border); color: var(--white); }
   .btn-store { background: linear-gradient(135deg, var(--red), var(--red2)); color: #fff; }
+  .project-modal {
+    width: min(900px, calc(100vw - 32px)); max-height: min(760px, calc(100vh - 32px));
+    margin: auto; padding: 0; border: 1px solid var(--border); border-radius: 16px;
+    background: var(--card); color: var(--white); overflow: hidden;
+  }
+  .project-modal::backdrop { background: rgba(0,0,0,0.68); backdrop-filter: blur(4px); }
+  .modal-shell { display: flex; flex-direction: column; max-height: inherit; }
+  .modal-head {
+    display: flex; align-items: flex-start; justify-content: space-between; gap: 18px;
+    padding: 24px 28px; border-bottom: 1px solid var(--border);
+  }
+  .modal-kicker { color: var(--yellow); font-size: 0.72rem; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 4px; }
+  .modal-head h3 { font-size: 1.35rem; margin-bottom: 4px; }
+  .modal-head p { color: var(--muted); font-size: 0.88rem; }
+  .modal-close {
+    width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(--border);
+    background: rgba(255,255,255,0.04); color: var(--white); font-size: 1.25rem; cursor: pointer; flex-shrink: 0;
+  }
+  .modal-body { padding: 26px 28px 30px; overflow: auto; }
+  .modal-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+  .modal-section { border: 1px solid var(--border); border-radius: 12px; padding: 18px; background: rgba(255,255,255,0.025); }
+  .modal-section.full { grid-column: 1 / -1; }
+  .modal-section h4 { font-size: 0.9rem; color: var(--yellow); margin-bottom: 10px; }
+  .modal-section p, .modal-section li { color: var(--muted); font-size: 0.84rem; line-height: 1.7; }
+  .modal-section ul { list-style: none; display: grid; gap: 8px; }
+  .modal-section li { position: relative; padding-left: 15px; }
+  .modal-section li::before { content: '•'; position: absolute; left: 0; color: var(--yellow); }
+  .app-screenshots {
+    display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; margin-top: 16px;
+  }
+  .app-shot { min-width: 0; margin: 0; }
+  .app-shot img {
+    display: block; width: 100%; aspect-ratio: 9 / 16; object-fit: cover; object-position: top;
+    border: 1px solid var(--border); border-radius: 8px; background: var(--bg);
+  }
+  .app-shot figcaption { margin-top: 8px; color: var(--muted); font-size: 0.72rem; line-height: 1.45; text-align: center; }
 
   /* ── CERTS ── */
   #certs { background: var(--bg); }
   .certs-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; }
+  .certs-intro { color: var(--muted); font-size: 0.92rem; max-width: 720px; margin-bottom: 24px; line-height: 1.8; }
   .cert-card {
     background: var(--card); border: 1px solid var(--border); border-radius: 12px;
-    padding: 20px 22px; display: flex; align-items: center; gap: 16px;
-    transition: border-color .25s;
+    padding: 20px 22px; display: grid; gap: 14px;
+    transition: border-color .25s, transform .25s;
   }
-  .cert-card:hover { border-color: var(--yellow); }
-  .cert-icon { font-size: 1.8rem; flex-shrink: 0; }
+  .cert-card:hover { border-color: var(--yellow); transform: translateY(-4px); }
+  .cert-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+  .cert-icon {
+    width: 40px; height: 40px; border-radius: 12px; flex-shrink: 0;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 1.2rem; background: rgba(212,226,0,0.08); border: 1px solid rgba(212,226,0,0.18);
+  }
   .cert-card h3 { font-size: 0.9rem; font-weight: 600; color: var(--white); }
-  .cert-card p { font-size: 0.78rem; color: var(--muted); margin-top: 2px; }
+  .cert-meta { display: grid; gap: 6px; }
+  .cert-meta span { font-size: 0.77rem; color: var(--muted); }
 
   /* ── CONTACT ── */
   #contact { background: var(--bg2); }
@@ -244,6 +314,16 @@
   @media (max-width: 720px) {
     .hero-text h1 { font-size: 2rem; }
     nav ul { display: none; }
+    .project-card { grid-template-columns: 1fr; }
+    .project-thumb { min-height: 140px; }
+    .modal-head { padding: 20px; }
+    .modal-body { padding: 20px; }
+    .modal-grid { grid-template-columns: 1fr; }
+    .app-screenshots {
+      display: flex; overflow-x: auto; padding-bottom: 10px; scroll-snap-type: x mandatory;
+      scrollbar-width: thin;
+    }
+    .app-shot { flex: 0 0 min(68vw, 230px); scroll-snap-align: start; }
   }
 
   /* ── SCROLL REVEAL ── */
@@ -281,7 +361,7 @@
         <h1>유정모</h1>
         <span class="hero-nickname">moKo</span>
       </div>
-      <p>Android Developer · 사용자 경험을 코드로 완성합니다</p>
+      <p>Android Developer</p>
       <span class="hero-badge">📱 Android Native · Kotlin</span>
     </div>
   </div>
@@ -291,9 +371,23 @@
 <section id="about">
   <div class="section-eyebrow"><span>About</span></div>
   <div class="about-text reveal">
-      <p class="section-title">안녕하세요,<br>안드로이드 개발자 moko입니다.</p>
-      <p>안드로이드 네이티브 개발에 다시 한번 딥다이브 하고자 열정을 가지고 공부하고 있습니다. 사용자가 매일 사용하는 앱에 작은 디테일 하나가 큰 차이를 만든다고 믿으며, 그 차이를 만들기 위해 고민합니다.</p>
-      <p>클린 아키텍처와 MVVM 패턴을 바탕으로 유지보수하기 좋은 코드를 작성하는 것을 목표로 합니다.</p>
+      <p class="section-title">실무 운영 경험을 바탕으로 다시 깊게 뛰어드는 Android Developer입니다.</p>
+      <p>2년간 안드로이드 네이티브 앱 개발과 유지보수를 경험하며, 기능 구현뿐 아니라 서비스의 성장과 안정성을 함께 고민해왔습니다. 잠시 현업을 떠난 시간 이후에도 Android 생태계의 흐름을 다시 따라잡으며, 사용자에게 닿는 작은 디테일을 코드로 완성하는 개발자로 복귀를 준비하고 있습니다.</p>
+      <p>MVVM, Clean Architecture, Retrofit, Coroutines, FCM, Firebase Analytics/Crashlytics를 바탕으로 유지보수성과 운영 효율을 높이는 구조를 만드는 데 집중해왔고, Jetpack Compose와 최신 상태 관리 흐름까지 꾸준히 확장하고 있습니다.</p>
+      <div class="highlights-grid">
+        <div class="highlight-card">
+          <h3>대규모 서비스 운영</h3>
+          <p>하루 평균 5천~1만 회원가입, 200만 다운로드 이상의 뷰티 서비스 앱에서 핵심 기능을 개발하고 유지보수했습니다.</p>
+        </div>
+        <div class="highlight-card">
+          <h3>구조적 개발 경험</h3>
+          <p>MVVM과 Clean Architecture를 적용해 코드의 확장성과 테스트 용이성을 높이는 방식으로 개발해 왔습니다.</p>
+        </div>
+        <div class="highlight-card">
+          <h3>운영/분석 연계</h3>
+          <p>FCM, Analytics, Crashlytics를 활용해 사용자 행동과 장애 상황을 실시간으로 파악하고 개선해 왔습니다.</p>
+        </div>
+      </div>
   </div>
 </section>
 
@@ -317,14 +411,14 @@
         <span class="exp-company">Android Developer</span>
         <span class="exp-date">2022.06 - 2024.05</span>
         <div class="exp-desc">
-          <p>하루 평균 5천~1만 회원가입, 200만 다운로드 이상의 퍼스널 컬러진단 및 뷰티 서비스 앱 안드로이드 파트 개발</p>
+          <p>누적 200만 다운로드, 일평균 1만 명 수준의 신규 유입이 발생하는 대규모 서비스의 안드로이드 개발을 담당했습니다.</p>
           <ul>
-            <li>MVVM 및 Clean Architecture 기반의 유지보수 가능한 코드 구조 설계</li>
-            <li>Retrofit2와 Coroutines를 이용한 비동기 네트워크 통신 처리</li>
-            <li>Firebase Cloud Messaging(FCM) 기반 푸시 알림 기능 개발 및 운영</li>
-            <li>Firebase Analytics를 활용한 사용자 행동 데이터 수집 및 분석 지원</li>
-            <li>Firebase Crashlytics를 통한 실시간 장애 모니터링 및 안정성 개선</li>
-            <li>Git 기반 형상관리 및 협업 환경에서 코드 리뷰 참여</li>
+            <li>MVVM과 Clean Architecture를 기반으로 프로젝트 구조를 재정립해 유지보수성과 확장성을 개선했습니다.</li>
+            <li>Retrofit2와 Coroutines(Flow)를 활용해 비동기 통신 로직을 정리하고, 이미지 중심 서비스의 메모리 사용과 성능을 최적화했습니다.</li>
+            <li>Firebase Analytics를 분석해 진단 이탈 구간을 파악하고, 사용자 흐름 개선을 통해 전환율과 완료율을 높이는 데 기여했습니다.</li>
+            <li>FCM 기반 맞춤형 푸시를 도입해 사용자 리텐션 향상에 기여했습니다.</li>
+            <li>Crashlytics를 통해 실시간 장애 모니터링 체계를 운영하고 앱 안정성을 지속적으로 개선했습니다.</li>
+            <li>Git-flow와 코드 리뷰 문화 정착에 참여해 팀의 협업 효율과 코드 품질 관리 수준을 높였습니다.</li>
           </ul>
         </div>
       </div>
@@ -368,8 +462,9 @@
       <h3>📱 Android</h3>
       <div class="skill-tags">
         <span class="skill-tag">Kotlin</span>
-        <span class="skill-tag">XML Layout</span>
+        <span class="skill-tag">Jetpack Compose</span>
         <span class="skill-tag">Android SDK</span>
+        <span class="skill-tag">CameraX</span>
       </div>
     </div>
     <div class="skill-group">
@@ -378,8 +473,9 @@
         <span class="skill-tag">MVVM</span>
         <span class="skill-tag">Clean Architecture</span>
         <span class="skill-tag">Repository Pattern</span>
-        <span class="skill-tag">LiveData</span>
+        <span class="skill-tag">UDF</span>
         <span class="skill-tag">StateFlow</span>
+        <span class="skill-tag">Paging3</span>
       </div>
     </div>
     <div class="skill-group">
@@ -389,7 +485,9 @@
         <span class="skill-tag">Room</span>
         <span class="skill-tag">Navigation</span>
         <span class="skill-tag">Hilt</span>
+        <span class="skill-tag">DataStore</span>
         <span class="skill-tag">WorkManager</span>
+        <span class="skill-tag">DataBinding</span>
       </div>
     </div>
     <div class="skill-group">
@@ -399,26 +497,19 @@
         <span class="skill-tag">OkHttp</span>
         <span class="skill-tag">Gson</span>
         <span class="skill-tag">Coroutines</span>
+        <span class="skill-tag">Flow</span>
         <span class="skill-tag">Firebase</span>
-      </div>
-    </div>
-    <div class="skill-group">
-      <h3>🛠️ Tools</h3>
-      <div class="skill-tags">
-        <span class="skill-tag">Android Studio</span>
-        <span class="skill-tag">Git / GitHub</span>
-        <span class="skill-tag">Figma</span>
-        <span class="skill-tag red">Gradle</span>
       </div>
     </div>
     <div class="skill-group">
       <h3>☁️ Backend / Others</h3>
       <div class="skill-tags">
+        <span class="skill-tag">Supabase</span>
+        <span class="skill-tag">Google Credential Manager</span>
         <span class="skill-tag">REST API</span>
         <span class="skill-tag">Firebase FCM</span>
-        <span class="skill-tag red">SQLite</span>
-        <span class="skill-tag">Glide</span>
         <span class="skill-tag">Coil</span>
+        <span class="skill-tag">Google Play Billing</span>
       </div>
     </div>
   </div>
@@ -430,54 +521,57 @@
   <div class="projects-grid reveal">
 
     <div class="project-card">
-      <div class="project-thumb">📋</div>
+      <div class="project-thumb">
+        <img src="images/colorloverlogo.png" alt="ColorLoverLab 로고">
+      </div>
       <div class="project-body">
-        <div class="project-type">Personal Project</div>
-        <h3>프로젝트 이름을 입력하세요</h3>
-        <p>앱에 대한 간단한 설명을 여기에 입력하세요. 어떤 문제를 해결했는지, 주요 기능은 무엇인지 작성해보세요.</p>
+        <div class="project-type">Service App</div>
+        <h3>ColorLoverLab Android</h3>
+        <p>누적 200만 다운로드 규모의 퍼스널 컬러 진단 서비스 앱. 진단, 뷰티 콘텐츠, 커뮤니티, 리뷰, 운영 기능을 담당하며 Android 네이티브 개발과 유지보수를 진행했습니다.</p>
+        <ul class="project-points">
+          <li>홈, 진단, 커뮤니티, 상품, 리뷰, 마이페이지 등 주요 화면 개발과 유지보수</li>
+          <li>FCM, Analytics, Crashlytics, Billing 등 운영 기능 연동</li>
+          <li>MVVM 기반 ViewModel/Repository 구조와 Retrofit, Room, Paging3 기반 데이터 흐름 관리</li>
+        </ul>
         <div class="project-tags">
           <span class="project-tag">Kotlin</span>
           <span class="project-tag">MVVM</span>
           <span class="project-tag">Retrofit</span>
-        </div>
-        <div class="project-links">
-          <a class="btn-link btn-gh" href="#">⌥ GitHub</a>
-          <a class="btn-link btn-store" href="#">▶ Play Store</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="project-card">
-      <div class="project-thumb">🎵</div>
-      <div class="project-body">
-        <div class="project-type">Team Project</div>
-        <h3>프로젝트 이름을 입력하세요</h3>
-        <p>앱에 대한 간단한 설명을 여기에 입력하세요. 팀 프로젝트라면 본인이 담당한 파트도 함께 작성하면 좋습니다.</p>
-        <div class="project-tags">
-          <span class="project-tag">Jetpack Compose</span>
-          <span class="project-tag">Hilt</span>
+          <span class="project-tag">FCM</span>
           <span class="project-tag">Room</span>
+          <span class="project-tag">Paging3</span>
         </div>
         <div class="project-links">
-          <a class="btn-link btn-gh" href="#">⌥ GitHub</a>
+          <button class="btn-link btn-store" type="button" data-modal-open="colorlover-modal">자세히 보기</button>
+          <a class="btn-link btn-gh" href="https://colorlover-color-analysis.kr.uptodown.com/android" target="_blank" rel="noopener noreferrer">앱 설치 경로</a>
         </div>
       </div>
     </div>
 
     <div class="project-card">
-      <div class="project-thumb">🗺️</div>
+      <div class="project-thumb project-thumb-text">
+        <div class="project-monogram">MC</div>
+        <div class="project-thumb-note">Modernization Build</div>
+      </div>
       <div class="project-body">
-        <div class="project-type">Personal Project</div>
-        <h3>프로젝트 이름을 입력하세요</h3>
-        <p>세 번째 프로젝트 설명을 입력하세요. 특별히 구현하면서 어려웠던 기술적 챌린지를 언급하면 인상적입니다.</p>
+        <div class="project-type">Personal Rebuild</div>
+        <h3>MyColover</h3>
+        <p>복귀 과정에서 실무 도메인을 최신 Android 스택으로 다시 압축해 본 개인 프로젝트입니다. 퍼스널 컬러 진단, 상품 탐색, 커뮤니티 흐름을 Compose 중심 구조로 재구성했습니다.</p>
+        <ul class="project-points">
+          <li>Jetpack Compose, Navigation, Hilt 기반 단일 앱 구조 재설계</li>
+          <li>Flow, debounce, DataStore, Room으로 상태와 로컬 저장 흐름 정리</li>
+          <li>Google Credential Manager, Supabase, 즐겨찾기, 진단 결과 복원까지 핵심 사용자 흐름 구현</li>
+        </ul>
         <div class="project-tags">
-          <span class="project-tag">Kotlin</span>
-          <span class="project-tag">Firebase</span>
-          <span class="project-tag">Google Maps</span>
+          <span class="project-tag">Compose</span>
+          <span class="project-tag">Hilt</span>
+          <span class="project-tag">StateFlow</span>
+          <span class="project-tag">DataStore</span>
+          <span class="project-tag">Room</span>
+          <span class="project-tag">Supabase</span>
         </div>
         <div class="project-links">
-          <a class="btn-link btn-gh" href="#">⌥ GitHub</a>
-          <a class="btn-link btn-store" href="#">▶ Play Store</a>
+          <button class="btn-link btn-store" type="button" data-modal-open="mycolover-modal">자세히 보기</button>
         </div>
       </div>
     </div>
@@ -485,58 +579,192 @@
   </div>
 </section>
 
-<!-- CERTS -->
+<dialog class="project-modal" id="colorlover-modal" aria-labelledby="colorlover-modal-title">
+  <div class="modal-shell">
+    <div class="modal-head">
+      <div>
+        <div class="modal-kicker">Work Project</div>
+        <h3 id="colorlover-modal-title">ColorLoverLab Android 작업 내용</h3>
+        <p>외부에 공개 가능한 범위에서, 실제로 담당한 기능과 운영 경험을 중심으로 정리했습니다.</p>
+      </div>
+      <button class="modal-close" type="button" data-modal-close aria-label="닫기">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-grid">
+        <div class="modal-section full">
+          <h4>프로젝트 개요</h4>
+          <p>퍼스널 컬러 진단, 뷰티 상품 탐색, 피드/커뮤니티, 리뷰, 결제, 푸시 알림을 포함한 Android 네이티브 서비스 앱입니다. 누적 200만 다운로드 규모의 운영 앱에서 기능 개발과 유지보수를 맡았습니다.</p>
+          <div class="project-links">
+            <a class="btn-link btn-store" href="https://colorlover-color-analysis.kr.uptodown.com/android" target="_blank" rel="noopener noreferrer">앱 설치 경로 열기</a>
+          </div>
+        </div>
+        <div class="modal-section">
+          <h4>서비스 운영/구조</h4>
+          <ul>
+            <li>MVVM 기반 ViewModel/Repository 구조로 주요 화면의 상태와 데이터 흐름을 분리했습니다.</li>
+            <li>Navigation, ViewBinding/DataBinding, Coroutine/Flow를 활용해 화면 전환과 비동기 처리를 정리했습니다.</li>
+            <li>Retrofit/OkHttp 기반 API 연동과 예외 처리, 네트워크 응답 흐름을 운영 환경에 맞게 다뤘습니다.</li>
+            <li>WorkManager로 인증 토큰 갱신과 반복 작업을 처리하고, 로그인 만료 시 흐름도 함께 관리했습니다.</li>
+          </ul>
+        </div>
+        <div class="modal-section">
+          <h4>피드/커뮤니티</h4>
+          <ul>
+            <li>Paging3와 RemoteMediator로 피드 데이터를 불러오고 Room 캐시로 목록 성능을 개선했습니다.</li>
+            <li>피드 작성에서 이미지 선택, 크롭, 리사이즈, multipart 업로드, 태그/유저 자동완성 흐름을 연결했습니다.</li>
+            <li>커뮤니티 게시글, 댓글, 좋아요, 신고, 차단 같은 상호작용 기능을 실제 사용성 기준으로 다듬었습니다.</li>
+          </ul>
+        </div>
+        <div class="modal-section">
+          <h4>이미지/진단 흐름</h4>
+          <ul>
+            <li>이미지 선택과 크롭, 리사이즈 흐름을 정리해 업로드 전 사용성을 높였습니다.</li>
+            <li>진단 결과 화면과 추천 콘텐츠가 자연스럽게 이어지도록 화면 간 연결을 손봤습니다.</li>
+            <li>진단 관련 데이터는 API 응답과 로컬 상태를 분리해 관리했습니다.</li>
+          </ul>
+        </div>
+        <div class="modal-section">
+          <h4>운영 기능</h4>
+          <ul>
+            <li>Google Play Billing으로 결제와 구독 상태를 처리했습니다.</li>
+            <li>FCM과 알림 채널로 푸시 알림과 이벤트성 메시지를 전달했습니다.</li>
+            <li>Firebase Analytics, Crashlytics로 사용 흐름과 장애 지점을 추적했습니다.</li>
+          </ul>
+        </div>
+        <div class="modal-section full">
+          <h4>실제 화면</h4>
+          <p>홈, 진단, 상품 탐색, 커뮤니티 흐름을 한눈에 볼 수 있도록 실제 앱 캡처를 넣었습니다.</p>
+          <div class="app-screenshots" aria-label="ColorLoverLab 주요 앱 화면">
+            <figure class="app-shot">
+              <img src="images/color1.png" alt="홈에서 추천 콘텐츠를 보여주는 앱 화면" loading="lazy">
+              <figcaption>홈 추천 콘텐츠</figcaption>
+            </figure>
+            <figure class="app-shot">
+              <img src="images/color2.png" alt="퍼스널 컬러 진단 항목을 선택하는 화면" loading="lazy">
+              <figcaption>진단 항목 선택</figcaption>
+            </figure>
+            <figure class="app-shot">
+              <img src="images/color3.png" alt="명도 비교를 통해 진단하는 화면" loading="lazy">
+              <figcaption>명도 비교 진단</figcaption>
+            </figure>
+            <figure class="app-shot">
+              <img src="images/color4.png" alt="뷰티 상품을 카테고리별로 탐색하는 화면" loading="lazy">
+              <figcaption>뷰티 상품 탐색</figcaption>
+            </figure>
+            <figure class="app-shot">
+              <img src="images/color5.png" alt="커뮤니티 피드를 확인하는 화면" loading="lazy">
+              <figcaption>커뮤니티 피드</figcaption>
+            </figure>
+          </div>
+        </div>
+        <div class="modal-section full">
+          <h4>운영에서 배운 점</h4>
+          <p>사용자가 직접 만지는 기능만큼이나 이벤트 대응, 알림, 결제 상태, 장애 추적이 중요하다는 걸 현업에서 체감했습니다. 출시 후에도 안정적으로 유지되는 Android 개발자의 역할을 많이 배울 수 있었던 프로젝트입니다.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</dialog>
+<dialog class="project-modal" id="mycolover-modal" aria-labelledby="mycolover-modal-title">
+  <div class="modal-shell">
+    <div class="modal-head">
+      <div>
+        <div class="modal-kicker">Personal Rebuild</div>
+        <h3 id="mycolover-modal-title">MyColover 작업 내용</h3>
+        <p>실무에서 다뤘던 퍼스널 컬러/뷰티 도메인을 최신 Android 스택으로 다시 설계하며 감각을 되살리기 위해 만든 축소형 앱입니다.</p>
+      </div>
+      <button class="modal-close" type="button" data-modal-close aria-label="닫기">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-grid">
+        <div class="modal-section full">
+          <h4>프로젝트 의도</h4>
+          <p>현업 복귀를 준비하면서 예전에 다뤘던 도메인을 다시 구현하되, XML 중심 구조 대신 Jetpack Compose와 최신 상태 관리 흐름으로 압축해 보는 데 초점을 맞췄습니다. 단순 클론보다 구조를 다시 설계해보는 연습에 가까운 프로젝트입니다.</p>
+        </div>
+        <div class="modal-section">
+          <h4>다시 설계한 구조</h4>
+          <ul>
+            <li>Single Activity + Compose Navigation 기반으로 앱 흐름을 단순하게 재구성했습니다.</li>
+            <li>Hilt로 네트워크, 데이터베이스, 리포지토리 의존성을 주입해 화면 코드와 인프라 코드를 분리했습니다.</li>
+            <li>Material 3 테마와 재사용 컴포넌트로 화면 구성을 통일했습니다.</li>
+          </ul>
+        </div>
+        <div class="modal-section">
+          <h4>상태 관리</h4>
+          <ul>
+            <li>검색어와 퍼스널 컬러 필터를 StateFlow로 관리하고 `combine`, `debounce`, `distinctUntilChanged`로 검색 흐름을 정리했습니다.</li>
+            <li>ViewModel 중심으로 화면 상태를 모아 Compose에서 바로 관찰할 수 있게 구성했습니다.</li>
+            <li>진단 결과와 로그인 사용자를 분리해 상태 변경이 각 화면 흐름에 자연스럽게 반영되도록 만들었습니다.</li>
+          </ul>
+        </div>
+        <div class="modal-section">
+          <h4>저장과 복원</h4>
+          <ul>
+            <li>DataStore로 사용자 정보와 진단 결과를 계정 기준으로 저장하고 재로그인 시 복원되게 했습니다.</li>
+            <li>Room으로 즐겨찾기 상품을 오프라인에서도 확인할 수 있게 구성했습니다.</li>
+            <li>실무에서 자주 고민했던 “세션과 로컬 상태의 연결”을 작은 앱 안에서 다시 정리해봤습니다.</li>
+          </ul>
+        </div>
+        <div class="modal-section">
+          <h4>구현한 사용자 흐름</h4>
+          <ul>
+            <li>Google Credential Manager 기반 로그인</li>
+            <li>퍼스널 컬러 자가 진단과 결과 저장</li>
+            <li>상품 목록 검색, 컬러 필터, 상세 화면, 즐겨찾기</li>
+            <li>Supabase REST API 기반 커뮤니티 글/댓글 조회와 작성</li>
+          </ul>
+        </div>
+        <div class="modal-section full">
+          <h4>이 프로젝트를 넣는 이유</h4>
+          <p>ColorLoverLab이 실제 운영 서비스에서의 경험을 보여준다면, MyColover는 그 경험을 바탕으로 최신 Android 개발 방식으로 다시 정리하고 학습한 흔적을 보여줍니다. 복귀 준비 과정에서 기술 감각을 되살리며 Compose, Hilt, DataStore, Credential Manager 같은 최신 도구를 다시 손에 익힌 프로젝트입니다.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</dialog>
 <section id="certs">
-  <div class="section-eyebrow"><span>Certificates</span></div>
+  <div class="section-eyebrow"><span>Certs</span></div>
   <div class="certs-list reveal">
     <div class="cert-card">
-      <div class="cert-icon">🏅</div>
+      <div class="cert-head">
+        <div class="cert-icon">1</div>
+      </div>
       <div>
-        <h3>자격증 이름</h3>
-        <p>발급 기관 · 취득 년월</p>
+        <h3>정보처리기사</h3>
+        <div class="cert-meta">
+          <span>발급기관 · 한국산업인력공단</span>
+          <span>취득일 · 2021.06</span>
+        </div>
       </div>
     </div>
     <div class="cert-card">
-      <div class="cert-icon">📜</div>
-      <div>
-        <h3>자격증 이름</h3>
-        <p>발급 기관 · 취득 년월</p>
+      <div class="cert-head">
+        <div class="cert-icon">2</div>
       </div>
-    </div>
-    <div class="cert-card">
-      <div class="cert-icon">🎓</div>
       <div>
-        <h3>자격증 이름</h3>
-        <p>발급 기관 · 취득 년월</p>
+        <h3>컴퓨터활용능력 2급</h3>
+        <div class="cert-meta">
+          <span>발급기관 · 대한상공회의소</span>
+          <span>취득일 · 2021.02</span>
+        </div>
       </div>
     </div>
   </div>
 </section>
-
 <!-- CONTACT -->
 <section id="contact">
   <div class="section-eyebrow"><span>Contact</span></div>
   <div class="contact-inner reveal">
-    <p>새로운 기회와 협업에 항상 열려 있습니다. 편하게 연락주세요!</p>
+    <p>다시 현업에서 좋은 제품을 함께 만들 기회를 찾고 있습니다. 편하게 연락주세요.</p>
     <div class="contact-links">
-      <a class="contact-item" href="mailto:your@email.com">
+      <a class="contact-item" href="mailto:heymoko@kakao.com">
         <div class="ci-icon">✉️</div>
-        <div><div class="ci-label">Email</div><div class="ci-value">your@email.com</div></div>
+        <div><div class="ci-label">Email</div><div class="ci-value">heymoko@kakao.com</div></div>
         <div class="ci-arrow">→</div>
       </a>
-      <a class="contact-item" href="https://github.com/yourid" target="_blank">
+      <a class="contact-item" href="https://github.com/heyMoko" target="_blank" rel="noopener noreferrer">
         <div class="ci-icon">🐙</div>
-        <div><div class="ci-label">GitHub</div><div class="ci-value">github.com/yourid</div></div>
-        <div class="ci-arrow">→</div>
-      </a>
-      <a class="contact-item" href="#" target="_blank">
-        <div class="ci-icon">🔗</div>
-        <div><div class="ci-label">LinkedIn</div><div class="ci-value">linkedin.com/in/yourid</div></div>
-        <div class="ci-arrow">→</div>
-      </a>
-      <a class="contact-item" href="#" target="_blank">
-        <div class="ci-icon">📱</div>
-        <div><div class="ci-label">Play Store</div><div class="ci-value">개발자 페이지</div></div>
+        <div><div class="ci-label">GitHub</div><div class="ci-value">github.com/heyMoko</div></div>
         <div class="ci-arrow">→</div>
       </a>
     </div>
@@ -545,16 +773,42 @@
 
 <!-- FOOTER -->
 <footer>
-  <p>© 2025 <span>heymoko</span> · Crafted with 💛</p>
+  <p>© <span id="year"></span> <span>heymoko</span> · Crafted with 💛</p>
 </footer>
 
 <script>
+  const yearEl = document.getElementById('year');
+  if (yearEl) {
+    yearEl.textContent = new Date().getFullYear();
+  }
+
   // Scroll reveal
   const reveals = document.querySelectorAll('.reveal');
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
   }, { threshold: 0.12 });
   reveals.forEach(el => observer.observe(el));
+
+  document.querySelectorAll('[data-modal-open]').forEach(button => {
+    button.addEventListener('click', () => {
+      const modal = document.getElementById(button.dataset.modalOpen);
+      if (modal) {
+        modal.showModal();
+      }
+    });
+  });
+
+  document.querySelectorAll('.project-modal').forEach(modal => {
+    modal.querySelectorAll('[data-modal-close]').forEach(button => {
+      button.addEventListener('click', () => modal.close());
+    });
+
+    modal.addEventListener('click', event => {
+      if (event.target === modal) {
+        modal.close();
+      }
+    });
+  });
 </script>
 
 </body>
