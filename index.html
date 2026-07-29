@@ -3,9 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="실서비스 운영 문제를 사용자 데이터와 상태 구조 관점에서 해결해 온 Android 개발자 유정모의 포트폴리오입니다.">
 <title>heymoko | Android Developer Portfolio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@300;400;600;700&family=Noto+Sans+KR:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -78,13 +79,9 @@
   .hero-text h1 { font-family: 'Bebas Neue', sans-serif; font-size: 2.6rem; letter-spacing: 3px; color: var(--white); line-height: 1; }
   .hero-name-row { display: flex; align-items: baseline; gap: 10px; }
   .hero-nickname { font-family: 'Poppins', sans-serif; font-size: 1rem; font-weight: 600; color: var(--yellow); letter-spacing: 1px; text-transform: uppercase; }
-  .hero-text p { color: var(--muted); font-size: 0.9rem; margin-top: 6px; }
-  .hero-badge {
-    display: inline-block; margin-top: 10px;
-    background: linear-gradient(135deg, var(--red), var(--red2));
-    color: #fff; font-size: 0.73rem; letter-spacing: 1.5px; text-transform: uppercase;
-    padding: 4px 14px; border-radius: 20px;
-  }
+  .hero-text { min-width: 0; }
+  .hero-role { color: var(--yellow); font-size: 0.82rem; font-weight: 600; margin-top: 6px; letter-spacing: 1px; text-transform: uppercase; }
+  .hero-summary { color: var(--white); font-size: 0.95rem; margin-top: 8px; max-width: 720px; }
   /* ── SECTION COMMON ── */
   section { padding: 80px 5vw; }
   .section-eyebrow {
@@ -101,7 +98,6 @@
     font-family: 'Bebas Neue', sans-serif; font-size: 2.4rem;
     letter-spacing: 2px; color: var(--white); margin-bottom: 8px;
   }
-
   /* ── ABOUT ── */
   #about { background: var(--bg2); }
   .about-text p { color: var(--muted); font-size: 0.95rem; line-height: 1.9; max-width: 760px; }
@@ -154,6 +150,7 @@
   .exp-company { font-size: 0.85rem; color: var(--yellow); font-weight: 600; margin-bottom: 8px; display: block; }
   .exp-date { font-size: 0.75rem; color: var(--muted); margin-bottom: 12px; display: block; }
   .exp-desc { color: var(--muted); font-size: 0.9rem; line-height: 1.6; }
+  .exp-desc strong { color: var(--white); }
   .exp-desc ul { margin-top: 8px; list-style: none; }
   .exp-desc li { position: relative; padding-left: 16px; margin-bottom: 6px; }
   .exp-desc li::before { content: '•'; position: absolute; left: 0; color: var(--yellow); }
@@ -331,6 +328,10 @@
   /* ── RESPONSIVE ── */
   @media (max-width: 720px) {
     .hero-text h1 { font-size: 2rem; }
+    .hero-info { align-items: flex-start; gap: 14px; padding: 22px 5vw 34px; }
+    .hero-avatar { width: 72px; height: 72px; }
+    .hero-divider { height: 64px; }
+    .hero-summary { font-size: 0.86rem; line-height: 1.65; }
     .nav-toggle { display: inline-flex; align-items: center; justify-content: center; }
     nav ul {
       display: none;
@@ -358,6 +359,1711 @@
   .reveal { opacity: 0; transform: translateY(24px); transition: opacity .55s ease, transform .55s ease; }
   .reveal.visible { opacity: 1; transform: none; }
 </style>
+<style>
+  /* 2026 editorial redesign */
+  :root {
+    --paper: #f4f5f7;
+    --surface: #ffffff;
+    --ink: #15171b;
+    --muted-ink: #666c76;
+    --rule: #d8dce3;
+    --rule-strong: #aeb4bf;
+    --blue: #2146d0;
+    --blue-dark: #1735a4;
+    --red-accent: #c9473d;
+  }
+
+  * { letter-spacing: 0 !important; }
+
+  html { scroll-padding-top: 72px; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 16px;
+    line-height: 1.75;
+    overflow-x: hidden;
+  }
+
+  a, button { -webkit-tap-highlight-color: transparent; }
+  button, input { font: inherit; }
+
+  nav {
+    height: 64px;
+    padding: 0 max(5vw, calc((100vw - 1180px) / 2));
+    background: rgba(244, 245, 247, 0.96);
+    border-bottom: 1px solid var(--rule);
+    backdrop-filter: none;
+  }
+
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    color: var(--ink);
+  }
+
+  .nav-logo img { display: none; }
+
+  .nav-logo::after {
+    content: 'heymoko';
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--ink);
+  }
+
+  nav ul { gap: 1.6rem; }
+
+  nav ul a {
+    color: var(--muted-ink);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    text-transform: none;
+    transition: color .18s ease;
+  }
+
+  nav ul a:hover,
+  nav ul a:focus-visible { color: var(--blue); }
+
+  .nav-toggle {
+    width: 38px;
+    height: 38px;
+    border: 1px solid var(--rule-strong);
+    border-radius: 2px;
+    background: transparent;
+    color: var(--ink);
+  }
+
+  #hero {
+    position: relative;
+    min-height: 540px;
+    margin-top: 64px;
+    padding: 0;
+    background: var(--surface);
+    border-bottom: 1px solid var(--rule);
+  }
+
+  #hero::before {
+    content: 'PORTFOLIO / ANDROID / 2026';
+    position: absolute;
+    top: 54px;
+    left: max(5vw, calc((100vw - 1180px) / 2));
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--blue);
+  }
+
+  #hero::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: max(5vw, calc((100vw - 1180px) / 2));
+    width: 7px;
+    height: 150px;
+    background: var(--red-accent);
+  }
+
+  .hero-banner-wrap,
+  .hero-avatar,
+  .hero-divider { display: none; }
+
+  .hero-info {
+    width: min(1180px, 90vw);
+    min-height: 540px;
+    margin: 0 auto;
+    padding: 128px 0 74px;
+    display: flex;
+    align-items: flex-end;
+    background: transparent;
+    border: 0;
+  }
+
+  .hero-text {
+    width: 100%;
+    max-width: none;
+  }
+
+  .hero-name-row {
+    display: flex;
+    align-items: flex-end;
+    gap: 20px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--ink);
+  }
+
+  .hero-text h1 {
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 5rem;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--ink);
+  }
+
+  .hero-nickname {
+    padding-bottom: 7px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.92rem;
+    font-weight: 500;
+    color: var(--blue);
+    text-transform: none;
+  }
+
+  .hero-role {
+    margin-top: 20px;
+    color: var(--muted-ink);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.78rem;
+    font-weight: 500;
+    text-transform: none;
+  }
+
+  .hero-summary {
+    max-width: 800px;
+    margin-top: 18px;
+    color: var(--ink);
+    font-size: 1.65rem;
+    font-weight: 600;
+    line-height: 1.48;
+  }
+
+  section {
+    padding: 104px max(5vw, calc((100vw - 1180px) / 2));
+    background: var(--paper);
+  }
+
+  #about,
+  #projects,
+  #contact { background: var(--surface); }
+
+  #about,
+  #experience,
+  #projects,
+  #skills,
+  #certs,
+  #contact { border-bottom: 1px solid var(--rule); }
+
+  .section-eyebrow {
+    display: block;
+    margin-bottom: 54px;
+    padding-top: 12px;
+    border-top: 1px solid var(--ink);
+  }
+
+  .section-eyebrow span {
+    display: block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.76rem;
+    font-weight: 500;
+    color: var(--blue);
+    text-transform: none;
+  }
+
+  .section-eyebrow::after { display: none; }
+
+  .section-title {
+    margin-bottom: 24px;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 2.25rem;
+    font-weight: 700;
+    line-height: 1.35;
+    color: var(--ink);
+  }
+
+  .about-text {
+    display: grid;
+    grid-template-columns: minmax(270px, 0.8fr) minmax(0, 1.2fr);
+    column-gap: 9%;
+  }
+
+  .about-text > .section-title {
+    grid-row: span 3;
+    max-width: 360px;
+  }
+
+  .about-text > p:not(.section-title) {
+    max-width: 700px;
+    color: var(--muted-ink);
+    font-size: 0.98rem;
+    line-height: 1.9;
+  }
+
+  .about-text > p + p { margin-top: 16px; }
+
+  .highlights-grid {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0;
+    margin-top: 72px;
+    border-top: 1px solid var(--rule-strong);
+  }
+
+  .highlight-card {
+    min-height: 0;
+    padding: 24px 28px 4px 0;
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+  }
+
+  .highlight-card + .highlight-card {
+    padding-left: 28px;
+    border-left: 1px solid var(--rule);
+  }
+
+  .highlight-card h3 {
+    margin-bottom: 12px;
+    color: var(--ink);
+    font-size: 0.98rem;
+  }
+
+  .highlight-card p {
+    color: var(--muted-ink);
+    font-size: 0.86rem;
+    line-height: 1.75;
+  }
+
+  .tabs-container {
+    max-width: 980px;
+    margin: 0;
+  }
+
+  .tabs-nav {
+    gap: 28px;
+    margin-bottom: 46px;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .tab-label {
+    padding: 0 0 13px;
+    color: var(--muted-ink);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.78rem;
+    font-weight: 500;
+    text-transform: none;
+  }
+
+  .tab-label:hover { color: var(--ink); }
+
+  #tab-work:checked ~ .tabs-nav label[for="tab-work"],
+  #tab-edu:checked ~ .tabs-nav label[for="tab-edu"] { color: var(--blue); }
+
+  .tab-active-bar {
+    width: 38px;
+    height: 2px;
+    background: var(--blue);
+  }
+
+  #tab-edu:checked ~ .tabs-nav .tab-active-bar { left: 66px; }
+
+  .exp-item {
+    margin: 0;
+    padding: 0;
+    border-left: 0;
+  }
+
+  .exp-item::before { display: none; }
+
+  .exp-item h3 {
+    color: var(--ink);
+    font-size: 1.65rem;
+    line-height: 1.35;
+  }
+
+  .exp-company {
+    margin: 7px 0 2px;
+    color: var(--blue);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.8rem;
+  }
+
+  .exp-date {
+    margin-bottom: 28px;
+    color: var(--muted-ink);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.74rem;
+  }
+
+  .exp-desc {
+    color: var(--muted-ink);
+    font-size: 0.92rem;
+    line-height: 1.8;
+  }
+
+  .exp-desc strong { color: var(--ink); }
+
+  .exp-desc ul {
+    margin-top: 32px;
+    border-top: 1px solid var(--rule-strong);
+  }
+
+  .exp-desc li {
+    display: grid;
+    grid-template-columns: 210px minmax(0, 1fr);
+    gap: 26px;
+    margin: 0;
+    padding: 20px 0;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .exp-desc li::before { display: none; }
+
+  .exp-desc li strong {
+    display: block;
+    align-self: start;
+  }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .project-card {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(280px, 360px) minmax(0, 1fr);
+    gap: 56px;
+    padding: 42px 0;
+    background: transparent;
+    border: 0;
+    border-top: 1px solid var(--rule-strong);
+    border-radius: 0;
+    overflow: visible;
+    transition: none;
+  }
+
+  .project-card:last-child { border-bottom: 1px solid var(--rule-strong); }
+
+  .project-card:hover {
+    border-color: var(--rule-strong);
+    transform: none;
+  }
+
+  .project-thumb {
+    position: relative;
+    width: 100%;
+    min-width: 0;
+    min-height: 380px;
+    padding: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: #e4e7ec;
+    border-radius: 0;
+    font-size: inherit;
+  }
+
+  .project-thumb::after {
+    content: '';
+    position: absolute;
+    inset: 12px;
+    border: 1px solid rgba(21, 23, 27, 0.15);
+    pointer-events: none;
+  }
+
+  .project-thumb img {
+    width: auto;
+    max-width: none;
+    aspect-ratio: auto;
+    object-fit: cover;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .project-thumb-screens {
+    align-items: flex-end;
+    gap: 12px;
+    padding: 42px 22px 0;
+  }
+
+  .project-thumb-screens img {
+    width: 31%;
+    min-width: 0;
+    height: auto;
+    max-height: 330px;
+    object-position: top;
+    border: 1px solid rgba(21, 23, 27, 0.16);
+    box-shadow: 0 12px 24px rgba(21, 23, 27, 0.12);
+  }
+
+  .project-thumb-screens img:nth-child(2) { transform: translateY(18px); }
+
+  .project-thumb.project-thumb-text {
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-end;
+    gap: 12px;
+    background: #202329;
+    color: #fff;
+  }
+
+  .project-thumb-text::before {
+    content: 'MC';
+    position: absolute;
+    top: 30px;
+    left: 30px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 5.2rem;
+    font-weight: 500;
+    line-height: 1;
+    color: #fff;
+  }
+
+  .project-beauty-icon { display: none; }
+
+  .project-thumb-note {
+    position: relative;
+    z-index: 1;
+    color: #bfc5d1;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    text-transform: none;
+  }
+
+  .project-body {
+    min-width: 0;
+    padding: 2px 0 0;
+  }
+
+  .project-type {
+    margin-bottom: 12px;
+    color: var(--blue);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    text-transform: none;
+  }
+
+  .project-body h3 {
+    margin-bottom: 16px;
+    color: var(--ink);
+    font-size: 1.75rem;
+    line-height: 1.35;
+  }
+
+  .project-body > p {
+    max-width: 690px;
+    color: var(--muted-ink);
+    font-size: 0.92rem;
+  }
+
+  .project-points {
+    gap: 9px;
+    margin-top: 25px;
+  }
+
+  .project-points li {
+    padding-left: 17px;
+    color: var(--muted-ink);
+    font-size: 0.84rem;
+    line-height: 1.65;
+  }
+
+  .project-points li::before {
+    content: '';
+    top: 0.72em;
+    width: 6px;
+    height: 1px;
+    background: var(--blue);
+  }
+
+  .project-tags {
+    gap: 0;
+    margin-top: 24px;
+  }
+
+  .project-tag {
+    padding: 0;
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    color: var(--muted-ink);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.7rem;
+  }
+
+  .project-tag:not(:last-child)::after {
+    content: ' / ';
+    margin: 0 7px;
+    color: var(--rule-strong);
+  }
+
+  .project-links {
+    flex-wrap: wrap;
+    gap: 9px;
+    margin-top: 25px;
+  }
+
+  .btn-link {
+    min-height: 40px;
+    padding: 9px 16px;
+    border: 1px solid var(--ink);
+    border-radius: 2px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    transition: background .18s ease, color .18s ease, border-color .18s ease;
+  }
+
+  .btn-link:hover { opacity: 1; }
+
+  .btn-store {
+    background: var(--blue);
+    border-color: var(--blue);
+    color: #fff;
+  }
+
+  .btn-store:hover {
+    background: var(--blue-dark);
+    border-color: var(--blue-dark);
+  }
+
+  .btn-gh {
+    background: transparent;
+    color: var(--ink);
+  }
+
+  .btn-gh:hover {
+    background: var(--ink);
+    color: #fff;
+  }
+
+  .project-modal {
+    width: min(1040px, calc(100vw - 32px));
+    max-height: calc(100vh - 32px);
+    background: var(--surface);
+    color: var(--ink);
+    border: 1px solid var(--ink);
+    border-radius: 0;
+  }
+
+  .project-modal::backdrop {
+    background: rgba(21, 23, 27, 0.72);
+    backdrop-filter: none;
+  }
+
+  .modal-head {
+    padding: 30px 34px;
+    border-bottom: 1px solid var(--ink);
+  }
+
+  .modal-kicker {
+    margin-bottom: 7px;
+    color: var(--blue);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    text-transform: none;
+  }
+
+  .modal-head h3 {
+    margin-bottom: 7px;
+    color: var(--ink);
+    font-size: 1.45rem;
+  }
+
+  .modal-head p {
+    max-width: 720px;
+    color: var(--muted-ink);
+    font-size: 0.86rem;
+  }
+
+  .modal-close {
+    width: 38px;
+    height: 38px;
+    background: transparent;
+    color: var(--ink);
+    border: 1px solid var(--rule-strong);
+    border-radius: 0;
+  }
+
+  .modal-close:hover {
+    background: var(--ink);
+    color: #fff;
+  }
+
+  .modal-body { padding: 10px 34px 40px; }
+
+  .modal-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0 34px;
+  }
+
+  .modal-section,
+  .modal-section.full {
+    padding: 26px 0;
+    background: transparent;
+    border: 0;
+    border-bottom: 1px solid var(--rule);
+    border-radius: 0;
+  }
+
+  .modal-section h4 {
+    margin-bottom: 12px;
+    color: var(--ink);
+    font-size: 0.92rem;
+  }
+
+  .modal-section p,
+  .modal-section li {
+    color: var(--muted-ink);
+    font-size: 0.84rem;
+    line-height: 1.78;
+  }
+
+  .modal-section li::before { color: var(--blue); }
+
+  .app-screenshots {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 14px;
+    margin-top: 20px;
+  }
+
+  .app-shot img {
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    border-radius: 2px;
+  }
+
+  .app-shot figcaption {
+    color: var(--muted-ink);
+    font-size: 0.7rem;
+  }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+    border-top: 1px solid var(--rule-strong);
+  }
+
+  .skill-group {
+    display: grid;
+    grid-template-columns: 220px minmax(0, 1fr);
+    gap: 28px;
+    padding: 24px 0;
+    background: transparent;
+    border: 0;
+    border-bottom: 1px solid var(--rule);
+    border-radius: 0;
+    transition: none;
+  }
+
+  .skill-group:hover {
+    border-color: var(--rule);
+    transform: none;
+  }
+
+  .skill-group h3 {
+    margin: 0;
+    color: var(--ink);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.8rem;
+    text-transform: none;
+  }
+
+  .skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 0;
+  }
+
+  .skill-tag,
+  .skill-tag.red {
+    padding: 0;
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    color: var(--muted-ink);
+    font-size: 0.86rem;
+  }
+
+  .skill-tag:not(:last-child)::after {
+    content: '·';
+    margin: 0 10px;
+    color: var(--blue);
+  }
+
+  .certs-intro {
+    color: var(--muted-ink);
+    font-size: 0.92rem;
+  }
+
+  .certs-list {
+    grid-template-columns: 1fr;
+    gap: 0;
+    border-top: 1px solid var(--rule-strong);
+  }
+
+  .cert-card {
+    padding: 24px 0;
+    background: transparent;
+    border: 0;
+    border-bottom: 1px solid var(--rule);
+    border-radius: 0;
+    transition: none;
+  }
+
+  .cert-card:hover {
+    border-color: var(--rule);
+    transform: none;
+  }
+
+  .cert-card > div {
+    display: grid;
+    grid-template-columns: 220px minmax(0, 1fr);
+    gap: 28px;
+  }
+
+  .cert-card h3 {
+    color: var(--ink);
+    font-size: 0.92rem;
+  }
+
+  .cert-meta {
+    grid-template-columns: repeat(2, minmax(0, max-content));
+    gap: 8px 26px;
+  }
+
+  .cert-meta span {
+    color: var(--muted-ink);
+    font-size: 0.8rem;
+  }
+
+  .contact-inner { max-width: 760px; }
+
+  .contact-inner > p {
+    max-width: 720px;
+    margin-bottom: 42px;
+    color: var(--muted-ink);
+    font-size: 1rem;
+    line-height: 1.9;
+  }
+
+  .contact-links {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0;
+    border-top: 1px solid var(--rule-strong);
+  }
+
+  .contact-item {
+    gap: 14px;
+    padding: 22px 0;
+    background: transparent;
+    color: var(--ink);
+    border: 0;
+    border-bottom: 1px solid var(--rule);
+    border-radius: 0;
+    transition: color .18s ease;
+  }
+
+  .contact-item + .contact-item { margin-left: 34px; }
+
+  .contact-item:hover {
+    color: var(--blue);
+    border-color: var(--rule);
+    transform: none;
+  }
+
+  .contact-item .ci-icon {
+    width: 28px;
+    color: var(--blue);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    text-align: left;
+  }
+
+  .contact-item .ci-label {
+    color: var(--muted-ink);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.7rem;
+    text-transform: none;
+  }
+
+  .contact-item .ci-value {
+    color: inherit;
+    font-size: 0.88rem;
+    overflow-wrap: anywhere;
+  }
+
+  .contact-item .ci-arrow { color: var(--blue); }
+
+  footer {
+    padding: 28px max(5vw, calc((100vw - 1180px) / 2));
+    background: var(--paper);
+    border-top: 0;
+    color: var(--muted-ink);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    text-align: left;
+  }
+
+  footer span { color: inherit; }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity .45s ease, transform .45s ease;
+  }
+
+  @media (max-width: 860px) {
+    nav ul {
+      top: 63px;
+      left: 5vw;
+      right: 5vw;
+      background: var(--surface);
+      border: 1px solid var(--ink);
+      border-radius: 0;
+    }
+
+    .nav-toggle {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    nav ul { display: none; }
+    nav.nav-open ul { display: flex; }
+    nav ul li + li { border-top: 1px solid var(--rule); }
+    nav ul a { padding: 14px 18px; }
+
+    .hero-text h1 { font-size: 4rem; }
+
+    .about-text {
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
+
+    .about-text > .section-title {
+      grid-row: auto;
+      max-width: 520px;
+    }
+
+    .about-text > p:not(.section-title) { max-width: 760px; }
+
+    .highlights-grid { grid-template-columns: 1fr; }
+
+    .highlight-card,
+    .highlight-card + .highlight-card {
+      padding: 22px 0;
+      border-left: 0;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .project-card {
+      grid-template-columns: minmax(250px, 300px) minmax(0, 1fr);
+      gap: 32px;
+    }
+
+    .project-thumb { min-height: 330px; }
+  }
+
+  @media (max-width: 680px) {
+    #hero { min-height: 440px; }
+
+    #hero::before { top: 34px; }
+
+    #hero::after {
+      right: 5vw;
+      width: 5px;
+      height: 90px;
+    }
+
+    .hero-info {
+      width: 90vw;
+      min-height: 440px;
+      padding: 96px 0 52px;
+      align-items: flex-end;
+    }
+
+    .hero-name-row {
+      align-items: flex-start;
+      flex-direction: column;
+      gap: 9px;
+      padding-bottom: 19px;
+    }
+
+    .hero-text h1 { font-size: 3.15rem; }
+
+    .hero-nickname { padding-bottom: 0; }
+
+    .hero-role { margin-top: 16px; }
+
+    .hero-summary {
+      margin-top: 15px;
+      font-size: 1.2rem;
+      line-height: 1.55;
+    }
+
+    section { padding-top: 76px; padding-bottom: 76px; }
+
+    .section-eyebrow { margin-bottom: 38px; }
+
+    .section-title { font-size: 1.75rem; }
+
+    .highlights-grid { margin-top: 48px; }
+
+    .exp-desc li {
+      grid-template-columns: 1fr;
+      gap: 8px;
+      padding: 19px 0;
+    }
+
+    .project-card {
+      grid-template-columns: 1fr;
+      gap: 28px;
+      padding: 32px 0 42px;
+    }
+
+    .project-thumb {
+      min-height: 300px;
+      aspect-ratio: 4 / 3;
+    }
+
+    .project-thumb-screens img { max-height: 285px; }
+
+    .project-body h3 { font-size: 1.45rem; }
+
+    .modal-head { padding: 22px 20px; }
+    .modal-head h3 { font-size: 1.15rem; }
+    .modal-body { padding: 4px 20px 26px; }
+    .modal-grid { grid-template-columns: 1fr; }
+
+    .app-screenshots {
+      display: flex;
+      overflow-x: auto;
+      padding-bottom: 10px;
+      scroll-snap-type: x mandatory;
+    }
+
+    .app-shot {
+      flex: 0 0 min(68vw, 230px);
+      scroll-snap-align: start;
+    }
+
+    .skill-group,
+    .cert-card > div {
+      grid-template-columns: 1fr;
+      gap: 13px;
+    }
+
+    .cert-meta { grid-template-columns: 1fr; }
+
+    .contact-links { grid-template-columns: 1fr; }
+    .contact-item + .contact-item { margin-left: 0; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .reveal { opacity: 1; transform: none; transition: none; }
+  }
+</style>
+<style>
+  /* White portfolio refinement: denser spacing, softer surfaces, stronger rhythm */
+  :root {
+    --paper: #f5f6f8;
+    --surface: #ffffff;
+    --ink: #17191e;
+    --muted-ink: #555d69;
+    --rule: #e1e4e9;
+    --blue: #3155d9;
+    --blue-dark: #223fae;
+    --coral: #e76a5d;
+    --yellow-soft: #f4df86;
+    --mint-soft: #b9dfd3;
+    --blue-soft: #dfe6ff;
+  }
+
+  #hero {
+    min-height: 440px;
+    background: #f8f9fb;
+    border-bottom: 0;
+    overflow: hidden;
+  }
+
+  #hero::before {
+    top: 42px;
+    z-index: 2;
+    color: var(--blue);
+  }
+
+  #hero::after {
+    content: '';
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    background: url('images/android-jetpack-hero.png') center right / cover no-repeat;
+    transform: none;
+    z-index: 0;
+    opacity: .58;
+    pointer-events: none;
+  }
+
+  .hero-info {
+    position: relative;
+    z-index: 1;
+    width: min(1180px, 90vw);
+    min-height: 440px;
+    padding: 104px 0 54px;
+    display: grid;
+    grid-template-columns: 96px minmax(0, 1fr);
+    gap: 30px;
+    align-items: end;
+  }
+
+  .hero-info::before {
+    display: none;
+  }
+
+  .hero-avatar {
+    display: block;
+    width: 96px;
+    height: 96px;
+    border: 0;
+    border-radius: 50%;
+    box-shadow: 0 12px 26px rgba(29, 36, 51, 0.14);
+  }
+
+  .hero-name-row {
+    gap: 14px;
+    padding: 0;
+    border: 0;
+  }
+
+  .hero-text h1 {
+    font-size: 3.6rem;
+    line-height: 1.05;
+  }
+
+  .hero-nickname { padding-bottom: 6px; }
+
+  .hero-role {
+    margin-top: 12px;
+    color: var(--blue);
+  }
+
+  .hero-summary {
+    max-width: 680px;
+    margin-top: 14px;
+    font-size: 1.38rem;
+    line-height: 1.5;
+  }
+
+  section {
+    padding-top: 72px;
+    padding-bottom: 72px;
+  }
+
+  #about,
+  #experience,
+  #projects,
+  #skills,
+  #certs,
+  #contact { border-bottom: 0; }
+
+  #about,
+  #skills,
+  #contact { background: var(--surface); }
+
+  #experience { background: #eef1fa; }
+
+  #experience {
+    padding-top: 58px;
+    padding-bottom: 58px;
+  }
+
+  #experience .section-eyebrow { margin-bottom: 26px; }
+  #projects { background: var(--paper); }
+  #certs { background: #edf4f1; }
+
+  .section-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 34px;
+    padding: 0;
+    border: 0;
+  }
+
+  .section-eyebrow::before {
+    content: '';
+    display: block;
+    width: 22px;
+    height: 8px;
+    background: var(--blue);
+  }
+
+  .section-eyebrow span {
+    color: var(--muted-ink);
+    font-size: 0.74rem;
+  }
+
+  .section-title {
+    margin-bottom: 18px;
+    font-size: 2rem;
+  }
+
+  .about-text {
+    grid-template-columns: minmax(250px, .72fr) minmax(0, 1.28fr);
+    column-gap: 7%;
+  }
+
+  .about-text > p:not(.section-title) {
+    color: var(--muted-ink);
+    line-height: 1.8;
+  }
+
+  .about-heading {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    min-height: 262px;
+    padding: 30px;
+    color: #fff;
+    background: #242832;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .about-heading::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 64px;
+    height: 9px;
+    background: #55c994;
+  }
+
+  .about-heading span {
+    margin-bottom: 8px;
+    color: #8fa7ff;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+  }
+
+  .about-heading strong {
+    max-width: 260px;
+    color: #fff;
+    font-size: 2.25rem;
+    font-weight: 700;
+    line-height: 1.3;
+  }
+
+  .about-copy {
+    position: relative;
+    padding: 28px 30px 30px;
+    background: #eef2ff;
+    border-radius: 8px;
+    box-shadow: 0 10px 28px rgba(49, 85, 217, 0.08);
+  }
+
+  .about-copy::before {
+    content: '';
+    display: block;
+    width: 38px;
+    height: 8px;
+    margin-bottom: 18px;
+    background: var(--blue);
+  }
+
+  .about-copy p {
+    color: #454e5e;
+    font-size: 0.94rem;
+    line-height: 1.82;
+  }
+
+  .about-copy p + p { margin-top: 14px; }
+
+  .highlights-grid {
+    gap: 14px;
+    margin-top: 42px;
+    border: 0;
+  }
+
+  .highlight-card,
+  .highlight-card + .highlight-card {
+    position: relative;
+    min-height: 156px;
+    padding: 24px;
+    background: var(--paper);
+    border: 0;
+    border-radius: 8px;
+    box-shadow: 0 8px 24px rgba(33, 40, 54, 0.06);
+  }
+
+  .highlight-card:nth-child(2) { background: #f0f3ff; }
+  .highlight-card:nth-child(3) { background: #f1f7f4; }
+
+  .highlight-card::before {
+    content: '';
+    display: block;
+    width: 30px;
+    height: 7px;
+    margin-bottom: 17px;
+    background: var(--coral);
+  }
+
+  .highlight-card:nth-child(2)::before { background: var(--blue); }
+  .highlight-card:nth-child(3)::before { background: #3f927c; }
+
+  .tabs-container {
+    max-width: 1180px;
+    padding: 24px 28px 28px;
+    background: var(--surface);
+    border-radius: 8px;
+    box-shadow: 0 14px 36px rgba(39, 49, 78, 0.08);
+  }
+
+  .tabs-nav {
+    gap: 8px;
+    margin-bottom: 24px;
+    border: 0;
+  }
+
+  .tab-label {
+    padding: 9px 15px;
+    color: #5f6672;
+    background: #f0f2f6;
+    border-radius: 5px;
+  }
+
+  #tab-work:checked ~ .tabs-nav label[for="tab-work"],
+  #tab-edu:checked ~ .tabs-nav label[for="tab-edu"] {
+    color: #fff;
+    background: var(--blue);
+  }
+
+  .tab-active-bar { display: none; }
+
+  .exp-item h3 {
+    color: var(--ink);
+    font-size: 1.35rem;
+  }
+
+  .exp-company { color: var(--blue); }
+
+  .exp-date {
+    margin-bottom: 16px;
+    color: #687181;
+  }
+
+  .exp-desc,
+  .exp-desc p {
+    color: #414956;
+    font-size: 0.88rem;
+    line-height: 1.7;
+  }
+
+  .exp-desc ul {
+    display: grid;
+    gap: 7px;
+    margin-top: 18px;
+    border: 0;
+  }
+
+  .exp-desc li {
+    display: grid;
+    grid-template-columns: 172px minmax(0, 1fr);
+    gap: 14px;
+    padding: 12px 14px;
+    color: #4f5764;
+    background: #f7f8fa;
+    border: 0;
+    border-radius: 7px;
+    font-size: 0.84rem;
+    line-height: 1.65;
+  }
+
+  .exp-desc li strong {
+    display: block;
+    color: #172e7b;
+  }
+
+  .projects-grid {
+    max-width: 980px;
+    gap: 20px;
+  }
+
+  .project-card {
+    grid-template-columns: 240px minmax(0, 1fr);
+    gap: 0;
+    padding: 0;
+    background: var(--surface);
+    border: 0;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 12px 30px rgba(33, 40, 54, 0.08);
+  }
+
+  .project-card:last-child { border: 0; }
+
+  .project-thumb {
+    min-height: 100%;
+    padding: 28px;
+    border-radius: 0;
+  }
+
+  .project-thumb::after { display: none; }
+
+  .project-thumb-logo {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .project-thumb-colorlover { background: #f5e8ed; }
+  .project-thumb-baselog { background: #e4ebfb; }
+
+  .project-thumb-logo img {
+    width: 126px;
+    height: 126px;
+    object-fit: contain;
+    border-radius: 26px;
+    box-shadow: 0 12px 24px rgba(35, 42, 58, 0.14);
+  }
+
+  .project-thumb.project-thumb-text {
+    min-height: 100%;
+    padding: 28px;
+    align-items: center;
+    justify-content: center;
+    background: #252932;
+  }
+
+  .project-thumb.project-thumb-text::before { display: none; }
+
+  .project-beauty-icon {
+    position: relative;
+    display: block;
+    width: 118px;
+    height: 118px;
+    background: #fff;
+    border: 0;
+    border-radius: 26px;
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.2);
+  }
+
+  .project-beauty-icon::before {
+    content: '';
+    position: absolute;
+    top: 17px;
+    left: 17px;
+    width: 58px;
+    height: 58px;
+    background: var(--coral);
+    border-radius: 50%;
+    box-shadow: none;
+  }
+
+  .project-beauty-icon::after {
+    content: '';
+    position: absolute;
+    right: 17px;
+    bottom: 17px;
+    width: 38px;
+    height: 38px;
+    background: var(--blue);
+    border-radius: 8px;
+    text-shadow: none;
+  }
+
+  .project-thumb-note {
+    color: #cbd0db;
+    text-align: center;
+  }
+
+  .project-thumb-logo .project-thumb-note { color: #657087; }
+
+  .project-body { padding: 28px 30px 30px; }
+
+  .project-type {
+    margin-bottom: 8px;
+    color: var(--blue);
+  }
+
+  .project-body h3 {
+    margin-bottom: 10px;
+    font-size: 1.45rem;
+  }
+
+  .project-body > p { color: var(--muted-ink); }
+
+  .project-points {
+    gap: 6px;
+    margin-top: 17px;
+  }
+
+  .project-tags {
+    gap: 7px;
+    margin-top: 18px;
+  }
+
+  .project-tag {
+    padding: 4px 9px;
+    color: #586173;
+    background: #f0f2f6;
+    border-radius: 4px;
+  }
+
+  .project-tag:not(:last-child)::after { display: none; }
+
+  .project-links { margin-top: 20px; }
+
+  .skills-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+    border: 0;
+  }
+
+  .skill-group {
+    position: relative;
+    display: block;
+    min-height: 178px;
+    padding: 24px;
+    background: var(--paper);
+    border: 0;
+    border-radius: 8px;
+    box-shadow: 0 8px 24px rgba(33, 40, 54, 0.06);
+    overflow: hidden;
+  }
+
+  .skill-group::after {
+    content: '';
+    position: absolute;
+    top: -18px;
+    right: -18px;
+    width: 54px;
+    height: 54px;
+    background: var(--blue-soft);
+    transform: rotate(14deg);
+  }
+
+  .skill-group:nth-child(2)::after { background: #f5cfc9; }
+  .skill-group:nth-child(3)::after { background: #cce7df; }
+  .skill-group:nth-child(4)::after { background: #f4e6ad; }
+  .skill-group:nth-child(5)::after { background: #ded5f3; }
+
+  .skill-group h3 {
+    margin-bottom: 18px;
+    color: var(--ink);
+    font-size: 0.86rem;
+  }
+
+  .skill-tags { gap: 7px; }
+
+  .skill-tag,
+  .skill-tag.red {
+    padding: 5px 9px;
+    color: #4e5664;
+    background: #fff;
+    border: 1px solid #e2e5ea;
+    border-radius: 5px;
+    font-size: 0.78rem;
+  }
+
+  .skill-tag:not(:last-child)::after { display: none; }
+
+  .certs-list {
+    max-width: 820px;
+    border: 0;
+  }
+
+  .cert-card {
+    display: block;
+    padding: 28px 30px 30px;
+    color: var(--ink);
+    background: var(--surface);
+    border: 0;
+    border-radius: 8px;
+    box-shadow: 0 12px 30px rgba(40, 57, 51, 0.09);
+    overflow: hidden;
+  }
+
+  .cert-card::before {
+    content: '국가기술자격';
+    display: inline-flex;
+    align-items: center;
+    min-height: 28px;
+    padding: 5px 10px;
+    color: #fff;
+    background: var(--blue);
+    border-radius: 4px;
+    font-size: 0.72rem;
+    font-weight: 600;
+  }
+
+  .cert-card::after { display: none; }
+
+  .cert-card > div {
+    grid-template-columns: minmax(180px, .7fr) minmax(0, 1.3fr);
+    align-items: end;
+    gap: 28px;
+    margin-top: 20px;
+    padding: 0;
+  }
+
+  .cert-card h3 {
+    color: var(--ink);
+    font-size: 1.05rem;
+  }
+
+  .cert-meta span { color: var(--muted-ink); }
+
+  .contact-links {
+    gap: 14px;
+    border: 0;
+  }
+
+  .contact-item,
+  .contact-item + .contact-item {
+    margin: 0;
+    padding: 19px 20px;
+    background: var(--paper);
+    border: 0;
+    border-radius: 7px;
+  }
+
+  .contact-item:hover { background: #eef1fb; }
+
+  .modal-head { border-bottom-color: var(--rule); }
+
+  .modal-grid { gap: 0 34px; }
+
+  .modal-section,
+  .modal-section.full {
+    padding: 24px 0;
+    border: 0;
+  }
+
+  .modal-section h4 {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .modal-section h4::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    background: var(--blue);
+  }
+
+  @media (max-width: 900px) {
+    .skills-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+    .project-card { grid-template-columns: 210px minmax(0, 1fr); }
+
+    .exp-desc li {
+      grid-template-columns: 1fr;
+      gap: 4px;
+    }
+
+    .project-thumb-logo img {
+      width: 112px;
+      height: 112px;
+    }
+  }
+
+  @media (max-width: 680px) {
+    #hero { min-height: 430px; }
+
+    #hero::after {
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      background-size: auto 76%;
+      background-position: 68% bottom;
+      opacity: .28;
+    }
+
+    .hero-info {
+      min-height: 430px;
+      padding: 92px 0 46px;
+      grid-template-columns: 72px minmax(0, 1fr);
+      gap: 18px;
+    }
+
+    .hero-avatar {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+    }
+
+    .hero-name-row {
+      flex-direction: row;
+      align-items: baseline;
+      gap: 9px;
+    }
+
+    .hero-text h1 { font-size: 2.5rem; }
+    .hero-nickname { padding: 0; }
+    .hero-summary { font-size: 1.08rem; }
+
+    section {
+      padding-top: 58px;
+      padding-bottom: 58px;
+    }
+
+    .about-text { grid-template-columns: 1fr; }
+    .about-heading {
+      min-height: 190px;
+      padding: 24px 22px;
+    }
+    .about-heading strong { font-size: 1.85rem; }
+    .about-copy {
+      margin-top: 4px;
+      padding: 23px 20px 24px;
+    }
+    .highlights-grid { margin-top: 34px; }
+
+    .highlight-card,
+    .highlight-card + .highlight-card { min-height: 0; }
+
+    .tabs-container { padding: 20px 16px 22px; }
+
+    .exp-desc li {
+      grid-template-columns: 1fr;
+      gap: 4px;
+      padding: 12px;
+    }
+
+    .project-card {
+      grid-template-columns: 1fr;
+      border-radius: 8px;
+    }
+
+    .project-thumb,
+    .project-thumb.project-thumb-text {
+      min-height: 210px;
+      aspect-ratio: auto;
+    }
+
+    .project-body { padding: 24px 20px 26px; }
+
+    .skills-grid { grid-template-columns: 1fr; }
+    .skill-group { min-height: 0; }
+
+    .cert-card {
+      padding: 24px 20px 25px;
+    }
+
+    .cert-card > div {
+      grid-template-columns: 1fr;
+      gap: 8px;
+      margin-top: 16px;
+      padding: 0;
+    }
+
+    .cert-card::before {
+      padding: 5px 9px;
+      font-size: 0.7rem;
+    }
+  }
+</style>
 </head>
 <body>
 
@@ -370,8 +2076,8 @@
   <ul>
     <li><a href="#about">About</a></li>
     <li><a href="#experience">Experience</a></li>
-    <li><a href="#skills">Skills</a></li>
     <li><a href="#projects">Projects</a></li>
+    <li><a href="#skills">Skills</a></li>
     <li><a href="#certs">Certs</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
@@ -390,8 +2096,8 @@
         <h1>유정모</h1>
         <span class="hero-nickname">moKo</span>
       </div>
-      <p>Android Native Developer</p>
-      <span class="hero-badge">📱 Android Native · Kotlin</span>
+      <p class="hero-role">Android Developer · Kotlin</p>
+      <p class="hero-summary">사용자가 겪는 문제에서 개발의 우선순위를 찾습니다.</p>
     </div>
   </div>
 </section>
@@ -400,21 +2106,26 @@
 <section id="about">
   <div class="section-eyebrow"><span>About</span></div>
   <div class="about-text reveal">
-      <p class="section-title">실무 경험을 바탕으로, 다시 안드로이드 개발에 집중하고 있는 moko입니다.</p>
-      <p>2년간 안드로이드 네이티브 앱 개발과 유지보수를 경험하며 기능 구현뿐 아니라 사용자 흐름, 운영 안정성, 데이터 흐름까지 함께 고민해왔습니다. 지금은 그 실무 경험을 바탕으로 다시 현업에 합류해, 사용자에게 직접 닿는 제품을 꾸준하고 단단하게 만드는 개발자로 복귀를 준비하고 있습니다.</p>
-      <p>실서비스 운영 경험을 바탕으로 MVVM, Retrofit, Coroutines, Firebase Analytics/Crashlytics 기반의 구조와 운영 흐름을 다뤄왔고, 최근에는 레거시 구조에서 느낀 한계를 다시 정리하며 Jetpack Compose, Hilt, StateFlow 중심의 개인 프로젝트로 기술 선택 기준을 다듬고 있습니다.</p>
+      <div class="about-heading">
+        <span>Android 개발자</span>
+        <strong>유정모입니다.</strong>
+      </div>
+      <div class="about-copy">
+        <p>2년간 Android 네이티브 앱을 개발하고 운영하며 화면 구현에 그치지 않고 사용자 이탈, 상태 불일치, 딥링크와 비동기 처리처럼 실제 서비스에서 드러나는 문제를 해결해 왔습니다. 현상을 재현하고 원인을 코드의 책임 구조까지 좁혀, 다음 변경에도 흔들리지 않는 형태로 고치는 것을 중요하게 생각합니다.</p>
+        <p>실무에서는 Views, MVVM, Retrofit, Coroutines, Firebase 기반의 제품을 운영했고, 개인 프로젝트에서는 그 과정에서 얻은 기준을 Jetpack Compose, UDF, Hilt, StateFlow 구조로 확장하고 있습니다. 익숙한 기술보다 상태의 소유권과 데이터 흐름이 명확한 선택을 우선합니다.</p>
+      </div>
       <div class="highlights-grid">
         <div class="highlight-card">
-          <h3>대규모 서비스 운영</h3>
-          <p>누적 200만 다운로드 규모 서비스에서 핵심 기능 개발과 유지보수를 맡으며 운영 환경의 요구를 직접 다뤘습니다.</p>
+          <h3>데이터로 찾는 개선 우선순위</h3>
+          <p>Analytics와 Crashlytics로 사용자의 이탈 지점과 오류 맥락을 확인하고, 추측보다 실제 사용 데이터에서 개선의 우선순위와 원인을 찾는 과정을 중요하게 생각합니다.</p>
         </div>
         <div class="highlight-card">
-          <h3>구조적 개발 경험</h3>
-          <p>MVVM 기반으로 화면 책임과 데이터 흐름을 분리하고, 유지보수하기 좋은 구조를 만드는 방향으로 개발해 왔습니다.</p>
+          <h3>실패를 전제로 한 흐름 설계</h3>
+          <p>네트워크 지연, API 실패, 중복 입력처럼 정상 경로를 벗어나는 상황을 함께 고려하고, 실제 처리 결과와 사용자에게 표시되는 상태가 일치하도록 설계합니다.</p>
         </div>
         <div class="highlight-card">
-          <h3>운영/분석 연계</h3>
-          <p>FCM, Analytics, Crashlytics를 활용해 사용자 행동과 장애 지점을 추적하고 개선 사이클을 운영해 왔습니다.</p>
+          <h3>책임이 분명한 상태 구조</h3>
+          <p>View는 사용자 입력과 화면 렌더링에 집중하고 ViewModel은 상태 보존과 비즈니스 로직을 책임지도록 분리해, 화면 전환과 비동기 흐름에서도 예측 가능한 구조를 지향합니다.</p>
         </div>
       </div>
   </div>
@@ -440,14 +2151,28 @@
         <span class="exp-company">Android Developer</span>
         <span class="exp-date">2022.06 - 2024.05</span>
         <div class="exp-desc">
-          <p>누적 200만 다운로드 규모의 서비스에서 안드로이드 기능 개발과 유지보수를 담당하며, 사용자 경험과 운영 안정성을 함께 다뤘습니다.</p>
+          <p>누적 200만 다운로드 규모의 퍼스널 컬러 플랫폼을 운영하며 신규 기능 개발, 사용자 행동 분석과 장애 개선을 담당했습니다.</p>
           <ul>
-            <li>MVVM과 Clean Architecture를 기반으로 구조를 정리해 유지보수성과 기능 확장에 유리한 코드베이스를 만들었습니다.</li>
-            <li>Retrofit2와 Coroutines(Flow)로 비동기 통신 흐름을 정리하고, 이미지 중심 서비스의 성능과 메모리 사용을 개선했습니다.</li>
-            <li>Firebase Analytics를 바탕으로 진단 이탈 구간을 확인하고, 사용자 흐름을 개선해 전환율과 완료율 향상에 기여했습니다.</li>
-            <li>FCM 기반 맞춤형 푸시와 운영 기능을 연동해 리텐션 관리에 기여했습니다.</li>
-            <li>Crashlytics로 장애를 추적하고 대응하면서 운영 앱의 안정성을 지속적으로 개선했습니다.</li>
-            <li>Git-flow와 코드 리뷰 문화에 참여해 협업 효율과 코드 품질 관리 수준을 높였습니다.</li>
+            <li>
+              <strong>자가진단 완료율 개선</strong>
+              <div>사용자가 여러 화면에서 비교 색상을 선택하고 결과를 누적하는 퍼스널 컬러 자가진단 테스트에서 Analytics 퍼널을 통해 특정 단계의 이탈 증가를 발견했으며, Fragment와 ViewModel에 분산된 스테이지·중간 결과 상태로 인해 화면 전환 중 값이 누락되는 원인을 찾아 상태 소유권과 결과 계산 책임을 ViewModel로 일원화해 진단 완료율을 높인 경험이 있습니다.</div>
+            </li>
+            <li>
+              <strong>푸시 딥링크 안정화</strong>
+              <div>앱이 포그라운드일 때 푸시 알림을 선택하면 기존 화면 위에 Activity가 중복 생성되고, 백그라운드에서 진입하면 뒤로 가기 시 기존 화면으로 돌아가지 못한 채 앱이 종료되는 문제가 있어 Activity를 singleTask로 구성하고 onNewIntent에서 딥링크를 처리하도록 변경해 실행 상태와 관계없이 기존 인스턴스와 탐색 스택을 유지하도록 해결한 경험이 있습니다.</div>
+            </li>
+            <li>
+              <strong>비동기 게시글 등록 개선</strong>
+              <div>게시글 생성 API의 성공 여부와 무관하게 1.5초 후 화면을 닫던 구조에서 네트워크 지연 시 등록 완료 전에 목록으로 이동하거나 실패 요청이 성공처럼 보일 수 있는 문제를 확인하고, 고정 지연을 제거한 뒤 서버 응답을 기준으로 화면 이동과 컨설턴트 푸시를 순차 실행해 서버 상태와 UI 흐름을 일치시킨 경험이 있습니다.</div>
+            </li>
+            <li>
+              <strong>온도감 진단 설계·구현</strong>
+              <div>사용자가 웜·쿨 타입을 선택한 뒤 CameraX 미리보기 위에서 뷰티·베이직·패션 색상을 단계별로 비교하도록 구성하고, 선택 결과의 누적과 최종 판정을 ViewModel에서 처리해 결과 팔레트와 액세서리 추천, 마이페이지 저장, 재진단 상태 초기화까지 하나의 흐름으로 구현한 경험이 있습니다.</div>
+            </li>
+            <li>
+              <strong>6개 언어권 글로벌 운영</strong>
+              <div>국내보다 해외 사용자 비중이 높은 서비스에서 한국어·영어·중국어·인도네시아어·일본어·베트남어를 지원하고, 앱 Locale과 API 언어 헤더를 동기화하면서 번역 누락과 언어 전환 오류를 정리해 진단·커뮤니티·상품 탐색의 핵심 흐름을 6개 언어권에서 운영한 경험이 있습니다.</div>
+            </li>
           </ul>
         </div>
       </div>
@@ -460,85 +2185,12 @@
         <span class="exp-company">HANNAM UNIVERSITY</span>
         <span class="exp-date">2016.03 - 2022.03</span>
         <div class="exp-desc">
-          <p>컴퓨터 공학 전반에 걸친 기초 지식과 프로그래밍 역량을 쌓았습니다.</p>
+          <p>컴퓨터공학 전공 · 학사</p>
           <ul>
             <li>자료구조, 알고리즘, 운영체제 등 핵심 전공 과목 이수</li>
-            <li>모바일 프로그래밍 전공 심화 과정을 통한 안드로이드 기초 확립</li>
+            <li>모바일 프로그래밍 심화 과정을 통해 Android 개발 역량 확장</li>
           </ul>
         </div>
-      </div>
-      <div class="exp-item">
-        <h3>GDG Android Compose Fest 2021</h3>
-        <span class="exp-company">Google Developer Group</span>
-        <span class="exp-date">2021.11 - 2021.12</span>
-        <div class="exp-desc">
-          <p>Jetpack Compose를 활용한 현대적인 안드로이드 UI 개발에 대한 이해를 높였습니다.</p>
-          <ul>
-            <li>Jetpack Compose의 레이아웃 구조 및 테마/애니메이션/네비게이션에 대한 기초적인 이해</li>
-            <li>Views -> Compose로의 마이그레이션 과정 경험</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- SKILLS -->
-<section id="skills">
-  <div class="section-eyebrow"><span>Skills</span></div>
-  <div class="skills-grid reveal">
-    <div class="skill-group">
-      <h3>📱 Android</h3>
-      <div class="skill-tags">
-        <span class="skill-tag">Kotlin</span>
-        <span class="skill-tag">Jetpack Compose</span>
-        <span class="skill-tag">Android SDK</span>
-        <span class="skill-tag">CameraX</span>
-      </div>
-    </div>
-    <div class="skill-group">
-      <h3>🏗️ Architecture</h3>
-      <div class="skill-tags">
-        <span class="skill-tag">MVVM</span>
-        <span class="skill-tag">Clean Architecture</span>
-        <span class="skill-tag">Repository Pattern</span>
-        <span class="skill-tag">UDF</span>
-        <span class="skill-tag">StateFlow</span>
-        <span class="skill-tag">Paging3</span>
-      </div>
-    </div>
-    <div class="skill-group">
-      <h3>🔧 Jetpack</h3>
-      <div class="skill-tags">
-        <span class="skill-tag">ViewModel</span>
-        <span class="skill-tag">Room</span>
-        <span class="skill-tag">Navigation</span>
-        <span class="skill-tag">Hilt</span>
-        <span class="skill-tag">DataStore</span>
-        <span class="skill-tag">WorkManager</span>
-        <span class="skill-tag">DataBinding</span>
-      </div>
-    </div>
-    <div class="skill-group">
-      <h3>🌐 Network / Data</h3>
-      <div class="skill-tags">
-        <span class="skill-tag">Retrofit2</span>
-        <span class="skill-tag">OkHttp</span>
-        <span class="skill-tag">Gson</span>
-        <span class="skill-tag">Coroutines</span>
-        <span class="skill-tag">Flow</span>
-        <span class="skill-tag">Firebase</span>
-      </div>
-    </div>
-    <div class="skill-group">
-      <h3>☁️ Backend / Others</h3>
-      <div class="skill-tags">
-        <span class="skill-tag">Supabase</span>
-        <span class="skill-tag">Google Credential Manager</span>
-        <span class="skill-tag">REST API</span>
-        <span class="skill-tag">Firebase FCM</span>
-        <span class="skill-tag">Coil</span>
-        <span class="skill-tag">Google Play Billing</span>
       </div>
     </div>
   </div>
@@ -550,17 +2202,17 @@
   <div class="projects-grid reveal">
 
     <div class="project-card">
-      <div class="project-thumb">
+      <div class="project-thumb project-thumb-logo project-thumb-colorlover">
         <img src="images/colorloverlogo.png" alt="ColorLoverLab 로고">
       </div>
       <div class="project-body">
         <div class="project-type">Service App</div>
         <h3>ColorLoverLab Android</h3>
-        <p>누적 200만 다운로드 규모의 퍼스널 컬러 서비스 앱입니다. 핵심 사용자 기능 개발뿐 아니라 Firebase Analytics, Crashlytics 기반으로 사용자 흐름과 운영 안정성을 함께 점검하며 Android 개발과 유지보수를 경험했습니다.</p>
+        <p>퍼스널 컬러 진단, 맞춤형 뷰티 상품 탐색, 커뮤니티와 리뷰를 제공하는 누적 200만 다운로드 규모의 Android 서비스입니다. 주요 사용자 기능 개발과 운영 유지보수를 담당했습니다.</p>
         <ul class="project-points">
-          <li>홈, 진단, 커뮤니티, 상품, 리뷰, 마이페이지 등 주요 사용자 화면 개발과 유지보수</li>
-          <li>FCM, Analytics, Crashlytics, Billing 등 운영에 필요한 기능 연동</li>
-          <li>운영 중인 B2C 앱에서 전환 흐름과 안정성을 함께 보며 진단/결과 퍼널 개선 경험</li>
+          <li>홈, 퍼스널 컬러 진단, 상품, 커뮤니티, 리뷰, 마이페이지 기능 개발</li>
+          <li>Retrofit, Coroutines, Paging3, Room을 활용한 API 및 목록 데이터 처리</li>
+          <li>FCM, Analytics, Crashlytics, Android 버전별 권한 등 운영 기능 대응</li>
         </ul>
         <div class="project-tags">
           <span class="project-tag">Kotlin</span>
@@ -578,18 +2230,18 @@
     </div>
 
     <div class="project-card">
-      <div class="project-thumb project-thumb-text">
+      <div class="project-thumb project-thumb-text project-thumb-mycolover">
         <div class="project-beauty-icon" aria-hidden="true"></div>
         <div class="project-thumb-note">Personal Rebuild</div>
       </div>
       <div class="project-body">
         <div class="project-type">Personal Rebuild</div>
         <h3>MyColover</h3>
-        <p>실무에서 다뤘던 도메인을 최신 Android 방식으로 다시 설계한 개인 프로젝트입니다. 레거시 앱에서 느꼈던 상태 분산과 화면 책임 문제를 줄이기 위해 Compose 중심 구조로 퍼스널 컬러 진단, 상품 탐색, 커뮤니티 흐름을 재구성했습니다.</p>
+        <p>퍼스널 컬러 진단 결과를 저장하고 맞춤형 뷰티 상품과 커뮤니티를 이용할 수 있는 개인 프로젝트입니다. 실무 도메인을 최신 Android 기술로 다시 구성했습니다.</p>
         <ul class="project-points">
-          <li>Jetpack Compose, Navigation, Hilt 기반으로 상태 중심의 단일 앱 구조 재설계</li>
-          <li>StateFlow, debounce, DataStore, Room으로 화면 상태와 로컬 저장 흐름 정리</li>
-          <li>Google Credential Manager, Supabase, 즐겨찾기, 진단 결과 복원까지 핵심 사용자 흐름 구현</li>
+          <li>Compose, Navigation, Hilt 기반의 로그인·진단·상품·커뮤니티 화면 구현</li>
+          <li>StateFlow와 UDF로 검색, 필터, 진단 결과 등 화면 상태 관리</li>
+          <li>DataStore, Room, Supabase를 활용한 계정별 결과 저장과 즐겨찾기·커뮤니티 기능 구현</li>
         </ul>
         <div class="project-tags">
           <span class="project-tag">Compose</span>
@@ -607,18 +2259,18 @@
     </div>
 
     <div class="project-card">
-      <div class="project-thumb project-thumb-text">
+      <div class="project-thumb project-thumb-logo project-thumb-baselog">
         <img src="images/baselog_icon.png" alt="BaseLog 앱 아이콘">
         <div class="project-thumb-note">Baseball Log</div>
       </div>
       <div class="project-body">
         <div class="project-type">Personal Android App</div>
         <h3>BaseLog</h3>
-        <p>야구 직관 기록을 저장하고 승률, 시즌별 기록, 친구 랭킹까지 확인할 수 있는 개인 Android 앱입니다. Compose 기반 화면 구성과 Firebase 실시간 데이터 흐름을 연결해 기록형 서비스의 핵심 구조를 직접 설계했습니다.</p>
+        <p>야구 직관 기록을 저장하고 전체·시즌별 승률, 친구 기록과 랭킹을 확인할 수 있는 개인 Android 앱입니다. 기록형 커뮤니티 서비스의 주요 흐름을 직접 설계하고 구현했습니다.</p>
         <ul class="project-points">
-          <li>Google 로그인, 온보딩, 홈/기록/친구/랭킹/마이페이지 탭 구조 구현</li>
-          <li>Firestore 기반 직관 기록 CRUD와 Flow로 실시간 목록/상세 상태 관찰</li>
-          <li>친구 요청/수락, 친구별 기록 조회, 전체/연도별 승률 랭킹 계산</li>
+          <li>Google 로그인, 온보딩, 홈·기록·친구·랭킹·마이페이지 화면 구현</li>
+          <li>Firestore 기반 직관 기록 CRUD와 실시간 목록·상세 데이터 처리</li>
+          <li>친구 요청·수락, 친구별 기록 조회, 전체·연도별 승률 랭킹 구현</li>
         </ul>
         <div class="project-tags">
           <span class="project-tag">Compose</span>
@@ -663,7 +2315,7 @@
             <li>MVVM 기반 ViewModel/Repository 구조로 주요 화면의 상태와 데이터 흐름을 분리했습니다.</li>
             <li>Navigation, ViewBinding/DataBinding, Coroutine/Flow를 활용해 화면 전환과 비동기 처리를 정리했습니다.</li>
             <li>Retrofit/OkHttp 기반 API 연동과 예외 처리, 네트워크 응답 흐름을 운영 환경에 맞게 다뤘습니다.</li>
-            <li>WorkManager로 인증 토큰 갱신과 반복 작업을 처리하고, 로그인 만료 시 흐름도 함께 관리했습니다.</li>
+            <li>Paging3, RemoteMediator, Room을 연결해 네트워크와 로컬 캐시를 하나의 피드 목록 흐름으로 구성했습니다.</li>
           </ul>
         </div>
         <div class="modal-section">
@@ -675,20 +2327,21 @@
           </ul>
         </div>
         <div class="modal-section">
-          <h4>이미지/진단 흐름</h4>
+          <h4>Analytics 기반 진단 완료율 개선</h4>
           <ul>
-            <li>이미지 선택과 크롭, 리사이즈 흐름을 정리해 업로드 전 사용성을 높였습니다.</li>
-            <li>진단 결과 화면과 추천 콘텐츠가 자연스럽게 이어지도록 화면 간 연결을 손봤습니다.</li>
-            <li>진단 관련 데이터는 API 응답과 로컬 상태를 분리해 관리했습니다.</li>
+            <li>단계별 퍼널에서 특정 테스트 구간의 이탈 증가를 확인하고 해당 구간의 상태 흐름을 추적했습니다.</li>
+            <li>Fragment와 ViewModel이 스테이지와 중간 결과를 중복 보유해 화면 전환 시 값이 어긋나는 문제를 원인으로 파악했습니다.</li>
+            <li>결과 누적과 계산 책임을 ViewModel로 일원화하고 Fragment는 입력 전달과 렌더링만 담당하도록 재구성했습니다.</li>
+            <li>단계 간 상태 정합성을 확보해 최종 결과가 누락되던 흐름을 줄이고 진단 완료율을 높였습니다.</li>
           </ul>
         </div>
         <div class="modal-section">
-          <h4>운영 기능</h4>
+          <h4>운영 경계의 안정성</h4>
           <ul>
-            <li>Google Play Billing으로 결제와 구독 상태를 처리했습니다.</li>
-            <li>FCM과 알림 채널로 푸시 알림과 이벤트성 메시지를 전달했습니다.</li>
-            <li>Firebase Analytics, Crashlytics로 사용 흐름과 장애 지점을 추적했습니다.</li>
-            <li>진단 퍼널과 결과 화면 도달 흐름을 보며 전환과 안정성을 함께 점검했습니다.</li>
+            <li>포그라운드 푸시에서 앱이 중복 실행되고 백그라운드 푸시 진입 후 뒤로 가기 시 앱이 종료되는 문제를 해결했습니다.</li>
+            <li>Activity launchMode와 onNewIntent 처리, Navigation 백스택을 함께 조정해 앱 상태별 진입 흐름을 통일했습니다.</li>
+            <li>게시글 등록의 고정 대기를 제거하고 서버 응답, 성공 UI, 컨설턴트 푸시가 순서대로 실행되도록 변경했습니다.</li>
+            <li>Android 13 Photo Picker와 버전별 권한 분기로 이미지 첨부 기능의 OS 호환성을 확보했습니다.</li>
           </ul>
         </div>
         <div class="modal-section full">
@@ -718,8 +2371,8 @@
           </div>
         </div>
         <div class="modal-section full">
-          <h4>운영에서 배운 점</h4>
-          <p>이 프로젝트를 통해 사용자 기능 개발만큼이나 이벤트 대응, 알림, 결제 상태 관리, 장애 추적이 중요하다는 점을 체감했습니다. 출시 이후에도 안정적으로 운영되는 앱을 만드는 Android 개발자의 역할을 배운 경험이었습니다.</p>
+          <h4>이 경험이 만든 개발 기준</h4>
+          <p>운영 앱의 문제는 한 화면의 코드만 고쳐서는 해결되지 않는 경우가 많았습니다. 사용자 데이터로 이상 구간을 찾고, 화면 상태의 소유권과 비동기 작업의 실행 순서를 명확히 해야 같은 문제가 반복되지 않는다는 기준을 얻었습니다. 이 기준은 이후 Compose 개인 프로젝트에서 단방향 데이터 흐름과 ViewModel 중심 상태 관리를 선택한 배경이 되었습니다.</p>
         </div>
       </div>
     </div>
@@ -731,7 +2384,7 @@
       <div>
         <div class="modal-kicker">Personal Rebuild</div>
         <h3 id="mycolover-modal-title">MyColover 작업 내용</h3>
-        <p>실무에서 다뤘던 퍼스널 컬러/뷰티 도메인을 최신 Android 스택으로 다시 설계하며, 복귀 과정에서 실무 감각을 끌어올리기 위해 만든 개인 프로젝트입니다.</p>
+        <p>실무에서 확인한 상태 관리 문제를 Compose와 단방향 데이터 흐름으로 다시 풀어본 개인 프로젝트입니다.</p>
       </div>
       <button class="modal-close" type="button" data-modal-close aria-label="닫기">×</button>
     </div>
@@ -739,7 +2392,7 @@
       <div class="modal-grid">
         <div class="modal-section full">
           <h4>프로젝트 의도</h4>
-          <p>현업 복귀를 준비하면서 익숙한 도메인을 다시 구현하되, XML 중심 구조 대신 Jetpack Compose와 최신 상태 관리 방식으로 다시 설계하는 데 초점을 맞췄습니다. 특히 레거시 앱에서 느꼈던 상태 분산과 화면 책임 문제를 줄이는 방향으로 구조를 다시 설계하고 흐름을 검증하는 데 의미를 둔 프로젝트입니다.</p>
+          <p>ColorLoverLab 진단 과정에서는 Fragment와 ViewModel이 같은 상태를 나눠 가지면서 값이 어긋나는 문제가 있었습니다. MyColover는 이 경험을 설계 요구사항으로 바꿔, ViewModel이 상태를 소유하고 Compose가 상태를 렌더링하는 단방향 흐름을 진단·검색·로그인 전반에 적용한 프로젝트입니다.</p>
           <div class="project-links">
             <a class="btn-link btn-gh" href="https://github.com/heyMoko/MyColover" target="_blank" rel="noopener noreferrer">GitHub Repo 열기</a>
           </div>
@@ -778,8 +2431,8 @@
           </ul>
         </div>
         <div class="modal-section full">
-          <h4>이 프로젝트를 넣는 이유</h4>
-          <p>ColorLoverLab이 실제 운영 서비스 경험을 보여주는 프로젝트라면, MyColover는 그 경험을 최신 Android 개발 방식으로 다시 설계한 결과물입니다. 복귀 준비 과정에서 Compose, Hilt, StateFlow, DataStore 같은 도구를 사용해 상태 책임을 더 명확하게 나누는 구조를 직접 다시 정리하기 위해 진행했습니다.</p>
+          <h4>검증한 설계 선택</h4>
+          <p>Compose를 사용했다는 사실보다 실무에서 겪은 상태 소유권 문제를 단방향 데이터 흐름으로 다시 설계했다는 점에 의미를 두었습니다. UI, 화면 상태, 영속 데이터의 책임을 분리하고 로그인 계정이 바뀌어도 진단 결과와 즐겨찾기가 올바르게 복원되는 흐름을 직접 검증했습니다.</p>
         </div>
       </div>
     </div>
@@ -863,13 +2516,76 @@
           </div>
         </div>
         <div class="modal-section full">
-          <h4>이 프로젝트를 넣는 이유</h4>
-          <p>BaseLog는 작은 도메인을 선택해도 앱의 시작 분기, 인증, 프로필, 데이터 저장, 실시간 동기화, 소셜 관계, 랭킹 계산까지 제품 흐름을 온전히 설계할 수 있다는 점을 보여주는 프로젝트입니다. Compose UI 구현뿐 아니라 Firebase 기반 데이터 모델링과 상태 흐름을 함께 다뤘다는 점을 강조하기 위해 포트폴리오에 추가했습니다.</p>
+          <h4>검증한 설계 선택</h4>
+          <p>실시간 listener는 callbackFlow와 awaitClose로 감싸 구독 수명주기를 명시하고, 친구 관계 갱신은 batch write로 묶어 데이터 정합성을 우선했습니다. 승률 계산은 Firebase와 UI에 의존하지 않는 로직으로 분리해 홈과 랭킹에서 같은 규칙을 재사용할 수 있도록 설계했습니다.</p>
         </div>
       </div>
     </div>
   </div>
 </dialog>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-eyebrow"><span>Skills</span></div>
+  <div class="skills-grid reveal">
+    <div class="skill-group">
+      <h3>Android</h3>
+      <div class="skill-tags">
+        <span class="skill-tag">Kotlin</span>
+        <span class="skill-tag">Jetpack Compose</span>
+        <span class="skill-tag">Android Views</span>
+        <span class="skill-tag">Android SDK</span>
+        <span class="skill-tag">CameraX</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <h3>Architecture</h3>
+      <div class="skill-tags">
+        <span class="skill-tag">MVVM</span>
+        <span class="skill-tag">Clean Architecture</span>
+        <span class="skill-tag">Repository Pattern</span>
+        <span class="skill-tag">UDF</span>
+        <span class="skill-tag">StateFlow</span>
+        <span class="skill-tag">Paging3</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <h3>Jetpack</h3>
+      <div class="skill-tags">
+        <span class="skill-tag">ViewModel</span>
+        <span class="skill-tag">Navigation</span>
+        <span class="skill-tag">Room</span>
+        <span class="skill-tag">DataBinding</span>
+        <span class="skill-tag">Hilt</span>
+        <span class="skill-tag">DataStore</span>
+        <span class="skill-tag">Credential Manager</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <h3>Network / Data</h3>
+      <div class="skill-tags">
+        <span class="skill-tag">Coroutines</span>
+        <span class="skill-tag">Flow</span>
+        <span class="skill-tag">callbackFlow</span>
+        <span class="skill-tag">Retrofit2</span>
+        <span class="skill-tag">OkHttp</span>
+        <span class="skill-tag">REST API</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <h3>Backend / Others</h3>
+      <div class="skill-tags">
+        <span class="skill-tag">Firebase Analytics</span>
+        <span class="skill-tag">Crashlytics</span>
+        <span class="skill-tag">FCM</span>
+        <span class="skill-tag">Firebase Auth</span>
+        <span class="skill-tag">Firestore</span>
+        <span class="skill-tag">Supabase</span>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section id="certs">
   <div class="section-eyebrow"><span>Certificates</span></div>
   <div class="certs-list reveal">
@@ -882,30 +2598,21 @@
         </div>
       </div>
     </div>
-    <div class="cert-card">
-      <div>
-        <h3>컴퓨터활용능력 2급</h3>
-        <div class="cert-meta">
-          <span>발급기관 · 대한상공회의소</span>
-          <span>취득일 · 2021.02</span>
-        </div>
-      </div>
-    </div>
   </div>
 </section>
 <!-- CONTACT -->
 <section id="contact">
   <div class="section-eyebrow"><span>Contact</span></div>
   <div class="contact-inner reveal">
-    <p>안드로이드 개발 포지션에서 다시 좋은 제품을 함께 만들 기회를 찾고 있습니다. GitHub에는 코드와 개인 프로젝트를, 이 포트폴리오에는 실무 경험과 프로젝트 맥락을 정리해두었습니다.</p>
+    <p>사용자 문제를 기술적 원인까지 함께 추적하는 Android 개발자로 좋은 제품을 만들 팀을 찾고 있습니다. GitHub에는 설계와 구현을 확인할 수 있는 개인 프로젝트를 정리해두었습니다.</p>
     <div class="contact-links">
       <a class="contact-item" href="mailto:heymoko@kakao.com">
-        <div class="ci-icon">✉️</div>
+        <div class="ci-icon">01</div>
         <div><div class="ci-label">Email</div><div class="ci-value">heymoko@kakao.com</div></div>
         <div class="ci-arrow">→</div>
       </a>
       <a class="contact-item" href="https://github.com/heyMoko" target="_blank" rel="noopener noreferrer">
-        <div class="ci-icon">🐙</div>
+        <div class="ci-icon">02</div>
         <div><div class="ci-label">GitHub</div><div class="ci-value">github.com/heyMoko</div></div>
         <div class="ci-arrow">→</div>
       </a>
@@ -915,7 +2622,7 @@
 
 <!-- FOOTER -->
 <footer>
-  <p>© <span id="year"></span> <span>heymoko</span></p>
+  <p><span id="year"></span> heymoko</p>
 </footer>
 
 <script>
