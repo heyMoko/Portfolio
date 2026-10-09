@@ -27,3 +27,11 @@ Present ColorLoverLab as a work project and add MyColover as a separate moderniz
 8. Added MyColover as a second project card positioned as a personal modernization rebuild of the same domain.
 9. Added a dedicated MyColover modal that explains the rebuild purpose, modern Android stack choices, state management, persistence flow, and user-facing features.
 10. Reworked the `certs` section from a mismatched achievements block into a certificate-history template with issuer, date, and status fields that can be filled with real credentials later.
+
+## Current Change Plan: Use the official Google Play install link
+### Purpose
+Point both ColorLoverLab install actions to the app's official Google Play listing.
+
+### Actions Completed
+1. Replaced the Uptodown URL in the project card and detail modal with the official Google Play URL.
+2. Updated both link labels to make the Google Play destination clear.
