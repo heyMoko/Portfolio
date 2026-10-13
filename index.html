@@ -1718,6 +1718,20 @@
   .project-thumb-colorlover { background: #f5e8ed; }
   .project-thumb-baselog { background: #e4ebfb; }
 
+  .project-thumb-mokomusic { background: #17191c; }
+
+  .project-thumb-mokomusic img {
+    width: 126px;
+    height: 126px;
+    object-fit: contain;
+    border-radius: 26px;
+    box-shadow: 0 12px 24px rgba(35, 42, 58, 0.18);
+  }
+
+  .app-screenshots.single-shot { display: flex; justify-content: flex-start; }
+  .single-shot .app-shot { width: min(100%, 300px); }
+  .single-shot .app-shot img { aspect-ratio: auto; object-fit: contain; }
+
   .project-thumb-logo img {
     width: 126px;
     height: 126px;
@@ -2287,8 +2301,84 @@
       </div>
     </div>
 
+    <div class="project-card">
+      <div class="project-thumb project-thumb-logo project-thumb-mokomusic">
+        <img src="images/mokomusic-icon.svg" alt="mokoMusic 앱 아이콘">
+      </div>
+      <div class="project-body">
+        <div class="project-type">Personal Android App</div>
+        <h3>mokoMusic</h3>
+        <p>Media3 기반으로 음악 재생과 백그라운드 제어 흐름을 구현한 개인 Android 오디오 플레이어입니다.</p>
+        <ul class="project-points">
+          <li>Media3 ExoPlayer와 MediaSessionService로 백그라운드 재생 흐름 구성</li>
+          <li>MediaSession·MediaController를 연결해 앱 밖에서도 재생 상태와 제어를 연동</li>
+          <li>플레이어 수명주기와 UI 상태를 분리해 재생 상태와 화면 상태를 관리</li>
+        </ul>
+        <div class="project-tags">
+          <span class="project-tag">Kotlin</span>
+          <span class="project-tag">Media3</span>
+          <span class="project-tag">ExoPlayer</span>
+          <span class="project-tag">MediaSession</span>
+          <span class="project-tag">Service</span>
+        </div>
+        <div class="project-links">
+          <button class="btn-link btn-store" type="button" data-modal-open="mokomusic-modal">자세히 보기</button>
+          <a class="btn-link btn-gh" href="https://github.com/heyMoko/mokoMusic" target="_blank" rel="noopener noreferrer">GitHub Repo</a>
+        </div>
+      </div>
+    </div>
+
   </div>
 </section>
+
+<dialog class="project-modal" id="mokomusic-modal" aria-labelledby="mokomusic-modal-title">
+  <div class="modal-shell">
+    <div class="modal-head">
+      <div>
+        <div class="modal-kicker">Personal Android App</div>
+        <h3 id="mokomusic-modal-title">mokoMusic 작업 내용</h3>
+        <p>Media3와 Android 미디어 세션 구조를 적용해 재생과 시스템 제어 흐름을 구현한 개인 프로젝트입니다.</p>
+      </div>
+      <button class="modal-close" type="button" data-modal-close aria-label="닫기">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-grid">
+        <div class="modal-section full">
+          <h4>프로젝트 개요</h4>
+          <p>mokoMusic은 Media3 ExoPlayer 기반 오디오 재생, MediaSessionService를 통한 백그라운드 재생, MediaSession·MediaController를 통한 시스템 미디어 제어를 구현한 Android 오디오 플레이어입니다.</p>
+          <div class="project-links">
+            <a class="btn-link btn-gh" href="https://github.com/heyMoko/mokoMusic" target="_blank" rel="noopener noreferrer">GitHub Repo 열기</a>
+          </div>
+        </div>
+        <div class="modal-section">
+          <h4>기술 선택과 구현</h4>
+          <ul>
+            <li>Media3 ExoPlayer를 사용해 Android 미디어 재생에 필요한 플레이어 기능과 상태 처리를 구성했습니다.</li>
+            <li>MediaSessionService에 재생을 두어 화면 생명주기와 분리된 백그라운드 재생 흐름을 경험했습니다.</li>
+            <li>MediaSession과 MediaController를 연결해 UI와 서비스 사이의 재생 명령 및 상태 전달 구조를 다뤘습니다.</li>
+          </ul>
+        </div>
+        <div class="modal-section">
+          <h4>프로젝트 범위</h4>
+          <ul>
+            <li>곡 재생과 일시정지, 이전·다음 곡 제어</li>
+            <li>재생 진행 상태와 현재 곡 정보를 플레이어 화면에 표시</li>
+            <li>서비스 중심의 재생 제어와 앱 UI 연결</li>
+          </ul>
+        </div>
+        <div class="modal-section full">
+          <h4>앱 화면</h4>
+          <div class="app-screenshots single-shot" aria-label="mokoMusic 앱 화면">
+            <figure class="app-shot">
+              <img src="images/mokomusic-player.png" alt="mokoMusic 재생 중인 오디오 플레이어 화면" loading="lazy">
+              <figcaption>오디오 플레이어</figcaption>
+            </figure>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</dialog>
 
 <dialog class="project-modal" id="colorlover-modal" aria-labelledby="colorlover-modal-title">
   <div class="modal-shell">
